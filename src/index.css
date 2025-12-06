@@ -43,6 +43,18 @@ nav a.active{
   background-color: var(--primary-700);
   transform: scale(1.05);
 }
+.btn-primary:disabled{
+  background-color: darkgray;
+  transform: scale(1.05);
+}
+.btn-out{
+  border: 1px solid var(--primary-700);
+  font-size: small;
+  font-weight: 700;
+}
+.btn-out:hover{
+  transform: scale(1.05);
+}
 .trns{
   @apply transition-discrete duration-300 transition-all
 }

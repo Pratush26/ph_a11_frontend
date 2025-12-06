@@ -1,37 +1,50 @@
 import { useForm } from "react-hook-form"
 import Img from '../../../assets/auth.png'
 import '../../../Utils/form.css'
-import { Link } from "react-router"
+import { Link, useLocation, useNavigate } from "react-router"
 import axios from "axios"
 import { showToast } from "../../../Utils/ShowToast"
+import { useContext } from "react"
+import { AuthContext } from "../../../Context/AuthContext"
 
 export default function RegisterPage() {
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm()
+    const { user, createUser, updateUser, signOutUser } = useContext(AuthContext)
+    const { state } = useLocation()
+    const navigate = useNavigate()
+    if (user) navigate(state || "/")
+
     const formSubmit = async (data) => {
+        let createdUser = null;
         try {
-      const formData = new FormData();
-      formData.append("file", data.photo[0]);  //  photo file
-      formData.append("upload_preset", `${import.meta.env.VITE_Cloudinary_Upload_Preset}`);   //  previously created upload preset
-      formData.append("folder", "user_images");   //  folder name in cloudinary
+            createdUser = await createUser(data.email, data.password);
 
-      const ImgRes = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_Cloudinary_CloudName}/image/upload`, formData);
-      if (!ImgRes?.data?.secure_url) {
-        // toast.error("Image upload failed");
-        return;
-      }
+            const formData = new FormData();
+            formData.append("file", data.image[0]);
+            formData.append("upload_preset", import.meta.env.VITE_Cloudinary_Upload_Preset);
+            formData.append("folder", "user_images");
 
-    //   const res = await createUser({ ...data, photo: ImgRes?.data?.secure_url });
-    //   if (res.success) {
-    //     toast.success(res.message || "Successfully registered");
-    //     reset()
-    //   } else {
-    //     toast.error(res.message || "Something went wrong");
-    //   }
-    } catch (err) {
-      showToast({ type: "error", msg: "Something went wrong!" });
-      console.error(err);
-    }
-    }
+            const ImgRes = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_Cloudinary_CloudName}/image/upload`, formData);
+            if (!ImgRes?.data?.secure_url) throw new Error("Image upload failed");
+
+            await updateUser(data.name, ImgRes.data.secure_url);
+            showToast({ type: "success", msg: "Successfully registered" });
+            reset();
+        } catch (err) {
+            console.error(err);
+            showToast({ type: "error", msg: "Something went wrong!" });
+
+            if (createdUser?.delete) {
+                try {
+                    await createdUser.delete();
+                    await signOutUser();
+                } catch (rollbackErr) {
+                    console.error("Rollback failed:", rollbackErr);
+                }
+            }
+        }
+    };
+
     return (
         <div className="grid grid-cols-2 items-center-safe justify-items-center-safe gap-6 m-6 w-11/12 mx-auto">
             <aside className="flex flex-col gap-4 items-center">
@@ -56,9 +69,9 @@ export default function RegisterPage() {
                     <input type={`password`} {...register("password", { required: "password is required" })} placeholder="Enter password" id="password" />
                 </div>
                 <div className="w-full text-sm">
-                <p>Do you already have an account? <Link to='/login' className="text-blue-500 trns hover:text-blue-700 font-semibold">Login</Link></p>
+                    <p>Do you already have an account? <Link to='/login' className="text-blue-500 trns hover:text-blue-700 font-semibold">Login</Link></p>
                 </div>
-                <button type="submit" disabled={isSubmitting} className="btn btn-primary trns rounded-sm shadow-md/60 disabled:bg-gray-500">{isSubmitting ? "Registering..." : "Register"}</button>
+                <button type="submit" disabled={isSubmitting} className="btn btn-primary trns rounded-sm shadow-md/60 ">{isSubmitting ? "Registering..." : "Register"}</button>
             </form>
         </div>
     )

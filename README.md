@@ -1,4 +1,11 @@
-# React + Vite
+# InfraCare
+### Features
+### Used Tech
+ [Live link 1](https://infracare-b79a4.web.app)     
+ [Github - Frontend](https://github.com/Pratush26/ph_a11_frontend)      
+ [Github - Backend](https://github.com/Pratush26/ph_11_backend)
+
+## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
