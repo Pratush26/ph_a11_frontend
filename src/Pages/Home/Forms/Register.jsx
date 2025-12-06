@@ -3,6 +3,7 @@ import Img from '../../../assets/auth.png'
 import '../../../Utils/form.css'
 import { Link } from "react-router"
 import axios from "axios"
+import { showToast } from "../../../Utils/ShowToast"
 
 export default function RegisterPage() {
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm()
@@ -27,7 +28,7 @@ export default function RegisterPage() {
     //     toast.error(res.message || "Something went wrong");
     //   }
     } catch (err) {
-    //   toast.error("Something went wrong");
+      showToast({ type: "error", msg: "Something went wrong!" });
       console.error(err);
     }
     }
