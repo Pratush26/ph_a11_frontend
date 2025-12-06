@@ -1,5 +1,5 @@
 export default function Footer() {
     return (
-        <footer>&copy; Copyright 2025 | All rights are reserved by InfraCare</footer>
+        <footer className="text-sm text-gray-700">&copy; 2025 InfraCare | All rights are reserved.</footer>
     )
 }
