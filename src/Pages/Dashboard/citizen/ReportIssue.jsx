@@ -4,14 +4,12 @@ import '../../../Utils/form.css'
 import { Link, useLocation, useNavigate } from "react-router"
 import axios from "axios"
 import { showToast } from "../../../Utils/ShowToast"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { AuthContext } from "../../../Context/AuthContext"
-import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 export default function RegisterPage() {
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm()
     const { user, createUser, updateUser, signOutUser } = useContext(AuthContext)
-    const [isVisible, setIsVisible] = useState(false)
     const { state } = useLocation()
     const navigate = useNavigate()
     if (user) navigate(state || "/")
@@ -24,7 +22,7 @@ export default function RegisterPage() {
             const formData = new FormData();
             formData.append("file", data.image[0]);
             formData.append("upload_preset", import.meta.env.VITE_Cloudinary_Upload_Preset);
-            formData.append("folder", "user_images");
+            formData.append("folder", "infracare");
 
             const ImgRes = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_Cloudinary_CloudName}/image/upload`, formData);
             if (!ImgRes?.data?.secure_url) throw new Error("Image upload failed");
@@ -66,10 +64,9 @@ export default function RegisterPage() {
                     {errors.image ? <p className="text-sm text-rose-600">{errors.image.message}</p> : <label htmlFor="image">Image :</label>}
                     <input type="file" {...register("image", { required: "image is required" })} id="image" />
                 </div>
-                <div className="w-full relative">
+                <div className="w-full">
                     {errors.password ? <p className="text-sm text-rose-600">{errors.password.message}</p> : <label htmlFor="password">Password :</label>}
-                    <input type={`${isVisible ? "text" : "password"}`} {...register("password", { required: "password is required" })} placeholder="Enter password" id="password" />
-                    <button onClick={() => setIsVisible(!isVisible)} type="button" className="absolute right-2 bottom-1 cursor-pointer -translate-y-1/2" >{isVisible ? <FaEyeSlash /> : <FaEye />}</button>
+                    <input type={`password`} {...register("password", { required: "password is required" })} placeholder="Enter password" id="password" />
                 </div>
                 <div className="w-full text-sm">
                     <p>Do you already have an account? <Link to='/login' className="text-blue-500 trns hover:text-blue-700 font-semibold">Login</Link></p>

@@ -24,10 +24,21 @@
 
 body{
   font-family: "Inter", sans-serif;
+  background-color: whitesmoke;
 }
 nav a.active{
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+aside a.active{
+  background-color: #dfdfdf;
+}
+.sideLink{
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+.sideLink:hover{
+  background-color: whitesmoke;
 }
 .btn{
   padding: 8px 18px;

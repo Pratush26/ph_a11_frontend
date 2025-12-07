@@ -7,6 +7,7 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import ErrorPage from "../Layouts/ErrorPage";
 import NotfoundPage from "../Layouts/Notfound";
+import ManageStaffsPage from "../Pages/Dashboard/admin/ManageStaffs";
 
 export const router = createBrowserRouter([
     {
@@ -37,8 +38,8 @@ export const router = createBrowserRouter([
                 Component: Dashboard
             },
             {
-                path: "login",
-                Component: LoginPage
+                path: "manage-staffs",
+                Component: ManageStaffsPage
             },
         ]
     },
