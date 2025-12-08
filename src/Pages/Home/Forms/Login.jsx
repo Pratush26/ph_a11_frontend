@@ -7,6 +7,7 @@ import { AuthContext } from "../../../Context/AuthContext"
 import { showToast } from "../../../Utils/ShowToast"
 import { FcGoogle } from "react-icons/fc"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
+import axios from "axios"
 
 export default function LoginPage() {
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm()
@@ -33,18 +34,18 @@ export default function LoginPage() {
 
     const handleGoogleLogin = async () => {
         try {
-            const res = await googleSignIn();
+            const res = await googleSignIn()
+            if (!res.user?.email) throw new Error("Google login failed")
 
-            if (res) {
-                showToast({ type: "success", msg: `Welcome Back, ${res.user?.displayName}` });
-                reset()
-            }
-            else showToast({ type: "error", msg: "Something went wrong!" });
-        } catch (err) {
-            showToast({ type: "error", msg: `${err.message} || "Google login failed"` });
-            console.error(err);
+            await axios.post(`${import.meta.env.VITE_SERVER}/citizen`, { name: res.user.displayName, email: res.user.email, photo: res.user.photoURL });
+            showToast({ type: "success", msg: "Logged in with Google" })
+
+        } catch (error) {
+            console.error(error)
+            showToast({ type: "error", msg: "Google login failed" })
         }
     }
+
 
     return (
         <div className="grid grid-cols-2 items-center-safe justify-items-center-safe gap-6 m-6 w-11/12 mx-auto">

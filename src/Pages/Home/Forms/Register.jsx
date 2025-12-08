@@ -30,6 +30,8 @@ export default function RegisterPage() {
             if (!ImgRes?.data?.secure_url) throw new Error("Image upload failed");
 
             await updateUser(data.name, ImgRes.data.secure_url);
+            await axios.post(`${import.meta.env.VITE_SERVER}/citizen`, { name: data.name, email: data.email, photo: ImgRes.data.secure_url });
+
             showToast({ type: "success", msg: "Successfully registered" });
             reset();
         } catch (err) {
