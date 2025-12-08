@@ -9,6 +9,8 @@ import ErrorPage from "../Layouts/ErrorPage";
 import NotfoundPage from "../Layouts/Notfound";
 import ManageStaffsPage from "../Pages/Dashboard/admin/ManageStaffs";
 import ManageUsersPage from "../Pages/Dashboard/admin/ManageUsers";
+import ReportIssue from "../Pages/Dashboard/citizen/ReportIssue";
+import MyIssuePage from "../Pages/Dashboard/citizen/MyIssues";
 
 export const router = createBrowserRouter([
     {
@@ -45,6 +47,14 @@ export const router = createBrowserRouter([
             {
                 path: "manage-users",
                 Component: ManageUsersPage
+            },
+            {
+                path: "report-issue",
+                Component: ReportIssue
+            },
+            {
+                path: "my-issues",
+                Component: MyIssuePage
             },
         ]
     },

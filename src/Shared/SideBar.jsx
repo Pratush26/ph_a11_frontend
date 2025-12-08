@@ -1,5 +1,6 @@
 import { FaRegUser, FaUserNurse } from "react-icons/fa";
 import { GrOverview } from "react-icons/gr";
+import { TbMessageReportFilled } from "react-icons/tb";
 import { NavLink } from "react-router";
 
 export default function SideBar({menuOpened}) {
@@ -8,6 +9,8 @@ export default function SideBar({menuOpened}) {
             <NavLink className="trns sideLink flex gap-2 items-center" to='/dashboard'><GrOverview /> Dashboard</NavLink>
             <NavLink className="trns sideLink flex gap-2 items-center" to='/manage-users'><FaRegUser /> Manage Users</NavLink>
             <NavLink className="trns sideLink flex gap-2 items-center" to='/manage-staffs'><FaUserNurse />Manage Staffs</NavLink>
+            <NavLink className="trns sideLink flex gap-2 items-center" to='/report-issue'><TbMessageReportFilled />Report Issue</NavLink>
+            <NavLink className="trns sideLink flex gap-2 items-center" to='/my-issues'><TbMessageReportFilled />My Issues</NavLink>
         </aside>
     )
 }

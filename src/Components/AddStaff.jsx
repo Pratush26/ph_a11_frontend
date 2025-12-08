@@ -37,10 +37,10 @@ export default function AddStaffForm({ setIsModalOpened }) {
                 showToast({ type: "success", msg: res.data.message });
                 reset();
             }
-            else showToast({ type: "error", msg: "Something went wrong!" });
+            else showToast({ type: "error", msg: res.response?.data?.message || "Something went wrong!" });
         } catch (err) {
             console.error(err);
-            showToast({ type: "error", msg: "Something went wrong!" });
+            showToast({ type: "error", msg: err.response?.data?.message || "Something went wrong!" });
         }
     };
 
