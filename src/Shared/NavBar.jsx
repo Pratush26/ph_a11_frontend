@@ -15,6 +15,8 @@ export default function NavBar() {
                 <div className="space-x-2">
                     <NavLink className="trns hover:text-gray-600" to='/'>Home</NavLink>
                     <NavLink className="trns hover:text-gray-600" to='/all-issues'>All Issues</NavLink>
+                    <NavLink className="trns hover:text-gray-600" to='/about'>About</NavLink>
+                    <NavLink className="trns hover:text-gray-600" to='/contact'>Contact Us</NavLink>
                 </div>
                 {
                     loading ?
