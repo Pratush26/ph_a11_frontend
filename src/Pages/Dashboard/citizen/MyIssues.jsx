@@ -61,10 +61,10 @@ export default function MyIssuePage() {
                                     </span>
                                 </td>
                                 <td>
-                                    {/* <div className="flex gap-2 justify-center">
-                                        <button disabled={e.blocked} className={`${e.blocked ? 'btn-out' : 'btn-primary'} btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Block</button>
-                                        <button disabled={!e.blocked} className={`${e.blocked ? 'btn-primary' : 'btn-out'} btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Unblock</button>
-                                    </div> */}
+                                    <div className="flex gap-2 justify-center">
+                                        {e.priority !== "high" && <button className={`btn-primary btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Boost</button>}
+                                        <button className={`btn-out btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Delete</button>
+                                    </div>
                                 </td>
                             </tr>
                         )

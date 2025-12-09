@@ -12,6 +12,7 @@ import ManageUsersPage from "../Pages/Dashboard/admin/ManageUsers";
 import ReportIssue from "../Pages/Dashboard/citizen/ReportIssue";
 import MyIssuePage from "../Pages/Dashboard/citizen/MyIssues";
 import AllIssuesPage from "../Pages/Home/AllIssues";
+import IssueDetails from "../Pages/Home/IssueDetails";
 
 export const router = createBrowserRouter([
     {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
             {
                 path: "all-issues",
                 Component: AllIssuesPage
+            },
+            {
+                path: "issue-details/:id",
+                Component: IssueDetails
             },
             {
                 path: "register",
