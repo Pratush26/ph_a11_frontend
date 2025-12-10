@@ -4,6 +4,8 @@ import { GrOverview } from "react-icons/gr";
 import { TbLogout2, TbMessageReportFilled } from "react-icons/tb";
 import { NavLink } from "react-router";
 import { UserContext } from "../Context/AuthContext";
+import { MdOutlineAssignmentTurnedIn } from "react-icons/md";
+import { FaMoneyBillTransfer } from "react-icons/fa6";
 
 export default function SideBar({ menuOpened }) {
     const { user, signOutUser } = useContext(UserContext)
@@ -19,6 +21,8 @@ export default function SideBar({ menuOpened }) {
             <NavLink className="trns sideLink flex gap-2 items-center" to='/dashboard'><GrOverview /> Dashboard</NavLink>
             <NavLink className="trns sideLink flex gap-2 items-center" to='/manage-users'><FaRegUser /> Manage Users</NavLink>
             <NavLink className="trns sideLink flex gap-2 items-center" to='/manage-staffs'><FaUserNurse />Manage Staffs</NavLink>
+            <NavLink className="trns sideLink flex gap-2 items-center" to='/assign-issues'><MdOutlineAssignmentTurnedIn />Assign Issues</NavLink>
+            <NavLink className="trns sideLink flex gap-2 items-center" to='/transactions'><FaMoneyBillTransfer />Transactions</NavLink>
             <NavLink className="trns sideLink flex gap-2 items-center" to='/report-issue'><TbMessageReportFilled />Report Issue</NavLink>
             <NavLink className="trns sideLink flex gap-2 items-center" to='/my-issues'><TbMessageReportFilled />My Issues</NavLink>
             <button onClick={() => signOutUser()} className="flex items-center gap-2 w-full py-1.5 px-3 rounded-sm trns hover:bg-gray-200 cursor-pointer"><TbLogout2 /> Log out</button>

@@ -46,39 +46,38 @@ export default function AllIssuesPage() {
                 }
             </article>
             <div className="flex justify-center gap-2 items-center mt-6">
+                {/* Prev */}
+                <button
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage(p => p - 1)}
+                    className="btn btn-primary rounded-md"
+                >
+                    ←
+                </button>
 
-            {/* Prev */}
-            <button
-                disabled={currentPage === 1}
-                onClick={() => setCurrentPage(p => p - 1)}
-                className="btn btn-primary rounded-md"
-            >
-                ←
-            </button>
+                {/* Page Numbers */}
+                {[...Array(totalPages)].map((_, i) => {
+                    const page = i + 1
+                    return (
+                        <button
+                            key={i}
+                            onClick={() => setCurrentPage(page)}
+                            className={`btn rounded-md trns ${page === currentPage ? "btn-primary" : "btn-out text-blue-700"}`}
+                        >
+                            {page}
+                        </button>
+                    )
+                })}
 
-            {/* Page Numbers */}
-            {[...Array(totalPages)].map((_, i) => {
-                const page = i + 1
-                return (
-                    <button
-                        key={i}
-                        onClick={() => setCurrentPage(page)}
-                        className={`btn rounded-md trns ${ page === currentPage ? "btn-primary" : "btn-out text-blue-700"}`}
-                    >
-                        {page}
-                    </button>
-                )
-            })}
-
-            {/* Next */}
-            <button
-                disabled={currentPage >= AllIssues?.total}
-                onClick={() => setCurrentPage(p => p + 1)}
-                className="btn btn-primary rounded-md"
-            >
-                →
-            </button>
-        </div>
+                {/* Next */}
+                <button
+                    disabled={currentPage >= AllIssues?.total}
+                    onClick={() => setCurrentPage(p => p + 1)}
+                    className="btn btn-primary rounded-md"
+                >
+                    →
+                </button>
+            </div>
         </main>
     )
 }

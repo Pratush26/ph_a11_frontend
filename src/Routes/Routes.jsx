@@ -14,6 +14,8 @@ import MyIssuePage from "../Pages/Dashboard/citizen/MyIssues";
 import AllIssuesPage from "../Pages/Home/AllIssues";
 import IssueDetails from "../Pages/Home/IssueDetails";
 import AfterPayment from "../Pages/Home/Payment/AfterPayment";
+import AssignIssues from "../Pages/Dashboard/admin/AssignIssues";
+import TransactionsPage from "../Pages/Dashboard/admin/Transactions";
 
 export const router = createBrowserRouter([
     {
@@ -62,6 +64,14 @@ export const router = createBrowserRouter([
             {
                 path: "manage-users",
                 Component: ManageUsersPage
+            },
+            {
+                path: "assign-issues",
+                Component: AssignIssues
+            },
+            {
+                path: "transactions",
+                Component: TransactionsPage
             },
             {
                 path: "report-issue",
