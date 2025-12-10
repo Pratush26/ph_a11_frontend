@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query"
 import Loader from "../../../Shared/Loader"
 import Error from "../../../Shared/Error"
 import '../../../Utils/table.css'
+import Swal from "sweetalert2"
+import { showToast } from "../../../Utils/ShowToast"
 
 export default function MyIssuePage() {
     const axis = useAxios()
@@ -17,7 +19,28 @@ export default function MyIssuePage() {
         </div>
     )
     if (dataError) return <Error msg={dataError.message} />;
-    console.log(myIssue)
+    const handleBoost = (title, id) => {
+        Swal.fire({
+            title: `Do you want to boost "${title}" issue?`,
+            text: "You can boost this issue by paying 200৳!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Pay now!",
+            cancelButtonText: "No"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axis.post(`${import.meta.env.VITE_SERVER}/checkout-session`, { id, price: 200 }).then(res => {
+                    window.location.href = res.data.url
+                }).catch(err => {
+                    showToast({ type: "error", message: err?.message || err || "Payment failed" })
+                    console.error(err)
+                })
+            }
+        });
+    }
+
     return (
         <main className="relative w-11/12 mx-auto min-h-screen">
             <h1 className="text-4xl my-8 font-semibold text-center">My Issues</h1>
@@ -51,18 +74,18 @@ export default function MyIssuePage() {
                                 </td>
                                 <td>{new Date(e.createdAt).toLocaleString()}</td>
                                 <td>
-                                    <span className={`${e.status === "pending"? "bg-amber-500" : e.status === "in-progress"? "bg-blue-500" : e.status === "resolved"? "bg-emerald-500" : e.status === "closed"? "bg-gray-500" : "bg-rose-500"} rounded-full text-white py-0.5 px-3`}>
-                                    {e.status}
+                                    <span className={`${e.status === "pending" ? "bg-amber-500" : e.status === "in-progress" ? "bg-blue-500" : e.status === "resolved" ? "bg-emerald-500" : e.status === "closed" ? "bg-gray-500" : "bg-rose-500"} rounded-full text-white py-0.5 px-3`}>
+                                        {e.status}
                                     </span>
                                 </td>
                                 <td>
-                                    <span className={`${e.priority === "low"? "bg-gray-500" : "bg-blue-500"} rounded-full text-white py-0.5 px-3`}>
-                                    {e.priority}
+                                    <span className={`${e.priority === "low" ? "bg-gray-500" : "bg-blue-500"} rounded-full text-white py-0.5 px-3`}>
+                                        {e.priority}
                                     </span>
                                 </td>
                                 <td>
                                     <div className="flex gap-2 justify-center">
-                                        {e.priority !== "high" && <button className={`btn-primary btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Boost</button>}
+                                        {e.priority !== "high" && <button onClick={() => handleBoost(e.title, e._id)} className={`btn-primary btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Boost</button>}
                                         <button className={`btn-out btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Delete</button>
                                     </div>
                                 </td>

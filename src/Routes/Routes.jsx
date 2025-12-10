@@ -13,6 +13,7 @@ import ReportIssue from "../Pages/Dashboard/citizen/ReportIssue";
 import MyIssuePage from "../Pages/Dashboard/citizen/MyIssues";
 import AllIssuesPage from "../Pages/Home/AllIssues";
 import IssueDetails from "../Pages/Home/IssueDetails";
+import AfterPayment from "../Pages/Home/Payment/AfterPayment";
 
 export const router = createBrowserRouter([
     {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
             {
                 path: "login",
                 Component: LoginPage
+            },
+            {
+                path: "after-payment",
+                Component: AfterPayment
             },
         ]
     },
