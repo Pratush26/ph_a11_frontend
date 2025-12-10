@@ -12,7 +12,6 @@ export const useAxios = () => {
     useEffect(() => {
         const reqInterceptor = instance.interceptors.request.use(config => {
             if (loading) return null;
-            console.log("user", user?.accessToken)
             config.headers.Authorization = `Bearer ${user?.accessToken}`
             return config
         })

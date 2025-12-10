@@ -8,13 +8,15 @@ import { AuthContext } from "../Context/AuthContext"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 import { RxCross2 } from "react-icons/rx"
 import { useAxios } from "../Hooks/UseAxios"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 export default function AddStaffForm({ setIsModalOpened }) {
-    const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm()
+    const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const [isVisible, setIsVisible] = useState(false)
     const axis = useAxios()
-    const formSubmit = async (data) => {
-        try {
+    const queryClient = useQueryClient()
+    const createIssueMutation = useMutation({
+        mutationFn: async (data) => {
             const formData = new FormData();
             formData.append("file", data.image[0]);
             formData.append("upload_preset", import.meta.env.VITE_Cloudinary_Upload_Preset);
@@ -23,7 +25,7 @@ export default function AddStaffForm({ setIsModalOpened }) {
             const ImgRes = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_Cloudinary_CloudName}/image/upload`, formData);
             if (!ImgRes?.data?.secure_url) throw new Error("Image upload failed");
 
-            const res = await axis.post("/add-staff", {
+            return axis.post("/add-staff", {
                 name: data.name,
                 email: data.email,
                 password: data.password,
@@ -33,17 +35,21 @@ export default function AddStaffForm({ setIsModalOpened }) {
                 address: data.address,
                 photo: ImgRes.data.secure_url,
             });
-            if (res.data.success) {
-                showToast({ type: "success", msg: res.data.message });
-                reset();
-            }
-            else showToast({ type: "error", msg: res.response?.data?.message || "Something went wrong!" });
-        } catch (err) {
-            console.error(err);
-            showToast({ type: "error", msg: err.response?.data?.message || "Something went wrong!" });
-        }
-    };
+        },
+        onSuccess: (res) => {
+            showToast({ type: "success", msg: res.data.message })
+            reset()
+            queryClient.invalidateQueries({ queryKey: ["staffs"] })
+        },
 
+        onError: (err) => {
+            showToast({
+                type: "error",
+                msg: err.response?.data?.message || "Something went wrong!"
+            })
+        }
+    });
+    const formSubmit = (data) => createIssueMutation.mutate(data)
     return (
         <form onSubmit={handleSubmit(formSubmit)} className="absolute bg-white z-90 right-1/2 top-0 translate-x-1/2 flex flex-col items-center gap-3 p-10 shadow-md/40 rounded-2xl w-3/4">
             <div className="w-full flex items-center justify-between gap-2">
@@ -83,7 +89,7 @@ export default function AddStaffForm({ setIsModalOpened }) {
                 {errors.address ? <p className="text-sm text-rose-600">{errors.address.message}</p> : <label htmlFor="address">Address :</label>}
                 <input type="text" {...register("address", { required: "address is required" })} placeholder="Enter address" id="address" />
             </div>
-            <button type="submit" disabled={isSubmitting} className="btn btn-primary trns rounded-sm shadow-md/60 ">{isSubmitting ? "Adding..." : "Add"}</button>
+            <button type="submit" disabled={createIssueMutation.isPending} className="btn btn-primary trns rounded-sm shadow-md/60 ">{createIssueMutation.isPending ? "Adding..." : "Add"}</button>
         </form>
     )
 }

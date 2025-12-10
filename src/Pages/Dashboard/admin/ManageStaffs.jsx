@@ -64,8 +64,7 @@ export default function ManageStaffsPage() {
                                     </div>
                                 </td>
                             </tr>
-                        )
-                        )
+                        ))
                     }
                 </tbody>
             </table>

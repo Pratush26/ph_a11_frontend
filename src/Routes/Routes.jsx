@@ -16,11 +16,13 @@ import IssueDetails from "../Pages/Home/IssueDetails";
 import AfterPayment from "../Pages/Home/Payment/AfterPayment";
 import AssignIssues from "../Pages/Dashboard/admin/AssignIssues";
 import TransactionsPage from "../Pages/Dashboard/admin/Transactions";
+import LoadingUi from "../Layouts/LoadingUi";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         Component: HomeLayout,
+        hydrateFallbackElement: <LoadingUi />,
         errorElement: <ErrorPage />,
         children: [
             {
@@ -51,6 +53,8 @@ export const router = createBrowserRouter([
     },
     {
         path: '/',
+        // hydrateFallbackElement: <LoadingUi />,
+        // errorElement: <ErrorPage />,
         Component: DashboardLayout,
         children: [
             {

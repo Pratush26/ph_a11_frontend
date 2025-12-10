@@ -47,7 +47,7 @@ export default function ManageUsersPage() {
                                         </span>
                                     </div>
                                 </td>
-                                <td>{e.phone || 0}</td>
+                                <td>{e.issueCount || 0}</td>
                                 <td>
                                     <div className="flex gap-2 justify-center">
                                         <button disabled={e.blocked} className={`${e.blocked ? 'btn-out' : 'btn-primary'} btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Block</button>

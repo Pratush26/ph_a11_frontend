@@ -10,22 +10,33 @@ export default function AfterPayment() {
     const [paymentData, setPaymentData] = useState({})
     const [searchParams] = useSearchParams()
     const sessionId = searchParams.get("session_id");
+    const type = searchParams.get("type")
     useEffect(() => {
         if (!sessionId) return;
-        axios.patch(`${import.meta.env.VITE_SERVER}/boost-issuePriority`, { session_id: sessionId })
-            .then(res => setPaymentData(res.data))
-            .catch(err => {
-                showToast({ type: "error", message: err.message || "Some error occur!" })
-                console.error(err)
-            });
-    }, [sessionId]);
+        if (type === "boost") {
+            axios.patch(`${import.meta.env.VITE_SERVER}/update-paymentStatus?type=${type}`, { session_id: sessionId })
+                .then(res => setPaymentData(res.data))
+                .catch(err => {
+                    showToast({ type: "error", message: err.message || "Some error occur!" })
+                    console.error(err)
+                });
+        }
+        else if (type === "subscription") {
+            axios.patch(`${import.meta.env.VITE_SERVER}/update-paymentStatus?type=${type}`, { session_id: sessionId })
+                .then(res => setPaymentData(res.data))
+                .catch(err => {
+                    showToast({ type: "error", message: err.message || "Some error occur!" })
+                    console.error(err)
+                });
+        }
+    }, [sessionId, type]);
 
     if (searchParams.get("success") === "false") {
         return (
             <main className="w-full">
                 <h1 className="text-4xl text-center text-secondary font-bold m-10">Payment Unsuccessful!</h1>
                 <div className="w-5/6 max-w-xs mx-auto">
-                <Lottie animationData={failed} />
+                    <Lottie animationData={failed} />
                 </div>
             </main>
         )
