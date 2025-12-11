@@ -1,30 +1,35 @@
 import { useState } from "react"
-import AddStaffForm from "../../../Components/AddStaff"
 import { useAxios } from "../../../Hooks/UseAxios"
 import { useQuery } from "@tanstack/react-query"
 import Loader from "../../../Shared/Loader"
 import Error from "../../../Shared/Error"
 import '../../../Utils/table.css'
+import StaffListModal from "../../../Components/StaffListModal"
 
 export default function AssignIssues() {
     const [isModalOpened, setIsModalOpened] = useState(false)
+    const [targetedIssue, setTargetedIssue] = useState(null)
     const axis = useAxios()
-    const { data: issueData, isLoading, error: dataError } = useQuery({
+    const { data: issueData, isLoading: dataLoading, error: dataError } = useQuery({
         queryKey: ['issues', 'pending'],
         queryFn: () => axis('/issues?status=pending').then(res => res.data),
         staleTime: 5 * 60 * 1000,
     })
-    if (isLoading) return (
+    
+    if (dataLoading) return (
         <div className="flex w-full min-h-[90vh] items-center justify-center">
             <Loader />
         </div>
     )
     if (dataError) return <Error msg={dataError.message} />;
-    console.log(issueData)
+    const handleAssign = (id) => {
+        setIsModalOpened(!isModalOpened)
+        setTargetedIssue(id)
+    }
     return (
         <main className="relative w-11/12 mx-auto min-h-screen">
             <h1 className="text-4xl my-8 font-semibold text-center">Assign Issues</h1>
-            {isModalOpened && <AddStaffForm setIsModalOpened={setIsModalOpened} />}
+            {isModalOpened && <StaffListModal setIsModalOpened={setIsModalOpened} issueId={targetedIssue} />}
             <div className="flex w-full justify-between items-center gap-4">
                 <p>Total Issues ({issueData.length})</p>
             </div>
@@ -33,6 +38,7 @@ export default function AssignIssues() {
                     <tr>
                         <th className="hidden sm:table-cell">SL no.</th>
                         <th>Issue Info</th>
+                        <th className="hidden sm:table-cell">Category</th>
                         <th className="hidden sm:table-cell">Submission Date</th>
                         <th className="hidden sm:table-cell">Status</th>
                         <th className="hidden sm:table-cell">Priority</th>
@@ -45,7 +51,7 @@ export default function AssignIssues() {
                             <tr key={i} className="border border-gray-300 bg-white">
                                 <td className="hidden sm:table-cell">{i + 1}</td>
                                 <td>
-                                    <div className="flex items-center text-start gap-2">
+                                    <div className="flex justify-center items-center text-start gap-2">
                                         <img src={e.photo} alt="staff photo" className="h-20 w-auto rounded-lg" />
                                         <span>
                                             <p>{e.title}</p>
@@ -53,6 +59,7 @@ export default function AssignIssues() {
                                         </span>
                                     </div>
                                 </td>
+                                <td>{e.category}</td>
                                 <td>{new Date(e.createdAt).toLocaleString()}</td>
                                 <td>
                                     <span className={`${e.status === "pending" ? "bg-amber-500" : e.status === "in-progress" ? "bg-blue-500" : e.status === "resolved" ? "bg-emerald-500" : e.status === "closed" ? "bg-gray-500" : "bg-rose-500"} rounded-full text-white py-0.5 px-3`}>
@@ -66,8 +73,7 @@ export default function AssignIssues() {
                                 </td>
                                 <td>
                                     <div className="flex gap-2 justify-center">
-                                        <button className={`btn-primary btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Assign</button>
-                                        <button className={`btn-out btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Reject</button>
+                                        <button onClick={() => handleAssign(e._id)} disabled={!!e.assignedTo} className={`btn-primary btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Assign</button>
                                     </div>
                                 </td>
                             </tr>

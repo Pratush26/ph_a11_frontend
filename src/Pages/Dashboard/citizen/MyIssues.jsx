@@ -22,7 +22,7 @@ export default function MyIssuePage() {
     const handleBoost = (title, id) => {
         Swal.fire({
             title: `Do you want to boost "${title}" issue?`,
-            text: "You can boost this issue by paying 200৳!",
+            text: "You can boost this issue by paying 100৳!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -31,7 +31,7 @@ export default function MyIssuePage() {
             cancelButtonText: "No"
         }).then((result) => {
             if (result.isConfirmed) {
-                axis.post(`/checkout-session`, { id, price: 200 }).then(res => {
+                axis.post(`/checkout-session`, { id, price: 100 }).then(res => {
                     window.location.href = res.data.url
                 }).catch(err => {
                     showToast({ type: "error", message: err?.message || err || "Payment failed" })
