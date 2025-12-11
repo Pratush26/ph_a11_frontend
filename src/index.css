@@ -26,6 +26,19 @@ body{
   font-family: "Inter", sans-serif;
   background-color: whitesmoke;
 }
+.embla {
+  overflow: hidden;
+}
+.embla__viewport {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+}
+.embla__slide {
+  flex: 0 0 100%;
+}
+
 nav a.active{
   text-decoration: underline;
   text-underline-offset: 4px;

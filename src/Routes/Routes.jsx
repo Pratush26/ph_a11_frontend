@@ -17,6 +17,7 @@ import AfterPayment from "../Pages/Home/Payment/AfterPayment";
 import AssignIssues from "../Pages/Dashboard/admin/AssignIssues";
 import TransactionsPage from "../Pages/Dashboard/admin/Transactions";
 import LoadingUi from "../Layouts/LoadingUi";
+import TermsCondition from "../Pages/Home/Terms";
 
 export const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
             {
                 path: "after-payment",
                 Component: AfterPayment
+            },
+            {
+                path: "terms",
+                Component: TermsCondition
             },
         ]
     },
