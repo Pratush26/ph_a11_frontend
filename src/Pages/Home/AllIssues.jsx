@@ -7,7 +7,7 @@ import { useState } from "react"
 
 export default function AllIssuesPage() {
     const [currentPage, setCurrentPage] = useState(1)
-    const limit = 2;
+    const limit = 12;
     const { data: AllIssues, isLoading: issueLoading, isFetching, error: dataErr } = useQuery({
         queryKey: ['issues', 'all', currentPage],
         queryFn: () => axios(`${import.meta.env.VITE_SERVER}/issues?limit=${limit}&page=${currentPage}`).then(res => res.data),
@@ -25,7 +25,7 @@ export default function AllIssuesPage() {
         <main className="min-h-[80vh] w-11/12 mx-auto my-10">
             <h3 className='text-center font-semibold text-3xl'>All Issues</h3>
             <p className='text-center my-2 text-sm'>Stay informed about current problems being addressed in your city. These are the latest issues reported by citizens like you.</p>
-            <article className='grid grid-cols-3 gap-6 w-11/12 mx-auto my-10'>
+            <article className='grid grid-cols-4 gap-6 w-11/12 mx-auto my-10'>
                 {
                     (isFetching || issueLoading) ?
                         <div className='min-h-[90vh] w-fit mx-auto flex items-center justify-center col-span-3'>
@@ -35,7 +35,7 @@ export default function AllIssuesPage() {
                         AllIssues?.map(e => (
                             <div key={e._id} className='shadow-md/30 rounded-xl p-4 flex flex-col justify-between gap-4 text-sm'>
                                 <div className='flex items-center justify-between w-full gap-3'>
-                                    <h6 className='text-2xl font-semibold'>{e.title}</h6>
+                                    <h6 className='text-lg font-bold'>{e.title}</h6>
                                     <p>{new Date(e.createdAt).toLocaleDateString()}</p>
                                 </div>
                                 <img src={e.photo} loading='lazy' alt="issue photo" className='w-full rounded-xl aspect-square object-cover' />
@@ -71,7 +71,7 @@ export default function AllIssuesPage() {
 
                 {/* Next */}
                 <button
-                    disabled={currentPage >= AllIssues?.total}
+                    disabled={currentPage >= totalPages}
                     onClick={() => setCurrentPage(p => p + 1)}
                     className="btn btn-primary rounded-md"
                 >

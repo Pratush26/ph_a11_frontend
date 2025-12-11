@@ -43,6 +43,7 @@ export default function ReportIssue() {
             reset()
             queryClient.invalidateQueries({ queryKey: ["issues"] })
             queryClient.invalidateQueries({ queryKey: ["categoryList"] })
+            queryClient.invalidateQueries({ queryKey: ["citizens"] })
         },
 
         onError: (err) => {

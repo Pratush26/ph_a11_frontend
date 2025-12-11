@@ -20,6 +20,7 @@ import LoadingUi from "../Layouts/LoadingUi";
 import TermsCondition from "../Pages/Home/Terms";
 import ContactPage from "../Pages/Home/Contact";
 import Profile from "../Pages/Dashboard/Profile";
+import AboutUsPage from "../Pages/Home/About";
 
 export const router = createBrowserRouter([
     {
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
             {
                 path: "contact",
                 Component: ContactPage
+            },
+            {
+                path: "about",
+                Component: AboutUsPage
             },
             {
                 path: "terms",

@@ -39,8 +39,8 @@ export default function TransactionsPage() {
                                 <th className="hidden sm:table-cell">SL no.</th>
                                 <th>Transaction ID</th>
                                 <th className="hidden sm:table-cell">Date</th>
-                                <th className="hidden sm:table-cell">Status</th>
                                 <th className="hidden sm:table-cell">Amount</th>
+                                <th className="hidden sm:table-cell">Status</th>
                             </tr>
                         </thead>
                         <tbody className="text-gray-800">
@@ -55,12 +55,12 @@ export default function TransactionsPage() {
                                             </div>
                                         </td>
                                         <td className="text-xs">{new Date(e.createdAt).toLocaleString()}</td>
+                                        <td>{e.amount} ৳</td>
                                         <td>
                                             <span className={`${e.status === "complete" ? "bg-blue-500" : "bg-gray-500"} rounded-full text-white py-0.5 px-3`}>
                                                 {e.status}
                                             </span>
                                         </td>
-                                        <td>{e.amount} ৳</td>
                                     </tr>
                                 ))
                             }

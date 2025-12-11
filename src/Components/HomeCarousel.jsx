@@ -1,10 +1,11 @@
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
+import Fade from 'embla-carousel-fade'
 
 export default function HomeCarousel({ carouselData }) {
-    const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()])
+    const [emblaRef] = useEmblaCarousel({ loop: true }, [Fade(), Autoplay()])
     return (
-        <div className='embla w-2/3 my-12 mx-auto'>
+        <div className='embla w-3/4 my-12 mx-auto'>
             <section className='my-6 embla__viewport' ref={emblaRef}>
                 <div className="embla__container">
                     {

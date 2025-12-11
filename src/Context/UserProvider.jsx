@@ -17,7 +17,6 @@ export default function UserProvider({ children }) {
         setUser(u);
 
         try {
-            console.log("user getting", u.accessToken)
           const res = await axios.get(
             `${import.meta.env.VITE_SERVER}/userInfo`,
             {

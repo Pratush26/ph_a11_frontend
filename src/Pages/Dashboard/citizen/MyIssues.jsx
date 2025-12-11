@@ -31,7 +31,7 @@ export default function MyIssuePage() {
             cancelButtonText: "No"
         }).then((result) => {
             if (result.isConfirmed) {
-                axis.post(`${import.meta.env.VITE_SERVER}/checkout-session`, { id, price: 200 }).then(res => {
+                axis.post(`/checkout-session`, { id, price: 200 }).then(res => {
                     window.location.href = res.data.url
                 }).catch(err => {
                     showToast({ type: "error", message: err?.message || err || "Payment failed" })
