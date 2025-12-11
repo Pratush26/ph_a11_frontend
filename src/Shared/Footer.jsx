@@ -2,8 +2,11 @@ import { Link } from 'react-router'
 import Logo from '../assets/logo.svg'
 import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
+import { useContext } from 'react'
+import { UserContext } from '../Context/AuthContext'
 
 export default function Footer() {
+    const { user } = useContext(UserContext)
     return (
         <footer className="text-sm bg-gray-300 w-full pt-8">
             <section className='grid grid-cols-4 items-start w-11/12 mx-auto'>
@@ -17,8 +20,18 @@ export default function Footer() {
                     <Link className='trns hover:text-gray-600' to='/contact'>Contact</Link>
                 </div>
                 <div className='flex flex-col gap-3'>
-                    <Link className='trns hover:text-gray-600' to='/register'>Register</Link>
-                    <Link className='trns hover:text-gray-600' to='/login'>Login</Link>
+                    {
+                        user ?
+                        <>
+                            <Link className='trns hover:text-gray-600' to='/dashboard'>Dashboard</Link>
+                            <Link className='trns hover:text-gray-600' to='/profile'>Profile</Link>
+                        </>
+                            :
+                            <>
+                                <Link className='trns hover:text-gray-600' to='/register'>Register</Link>
+                                <Link className='trns hover:text-gray-600' to='/login'>Login</Link>
+                            </>
+                    }
                     <Link className='trns hover:text-gray-600' to='/all-issues'>All Issues</Link>
                     <Link className='trns hover:text-gray-600' to='/terms'>Terms & Conditions</Link>
                 </div>

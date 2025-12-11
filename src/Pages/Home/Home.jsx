@@ -82,7 +82,7 @@ export default function HomePage() {
                             <li>Report, Track, Resolve - Together we build better communities.</li>
                             <li>Join thousands of citizens making their neighborhoods safer and cleaner every day.</li>
                         </ul>
-                        <button className='btn btn-primary trns rounded-full'>Join Community</button>
+                        <Link to='/dashboard' className='btn btn-primary trns rounded-full'>Join Community</Link>
                     </article>
                     <aside></aside>
                 </div>

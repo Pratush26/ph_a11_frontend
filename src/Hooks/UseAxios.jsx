@@ -29,7 +29,7 @@ export const useAxios = () => {
             instance.interceptors.response.eject(resInterceptor);
         }
 
-    }, [user])
+    }, [user, loading])
 
     return instance;
 }

@@ -18,6 +18,8 @@ import AssignIssues from "../Pages/Dashboard/admin/AssignIssues";
 import TransactionsPage from "../Pages/Dashboard/admin/Transactions";
 import LoadingUi from "../Layouts/LoadingUi";
 import TermsCondition from "../Pages/Home/Terms";
+import ContactPage from "../Pages/Home/Contact";
+import Profile from "../Pages/Dashboard/Profile";
 
 export const router = createBrowserRouter([
     {
@@ -51,6 +53,10 @@ export const router = createBrowserRouter([
                 Component: AfterPayment
             },
             {
+                path: "contact",
+                Component: ContactPage
+            },
+            {
                 path: "terms",
                 Component: TermsCondition
             },
@@ -65,6 +71,10 @@ export const router = createBrowserRouter([
             {
                 path: "dashboard",
                 Component: Dashboard
+            },
+            {
+                path: "profile",
+                Component: Profile
             },
             {
                 path: "manage-staffs",
