@@ -5,6 +5,7 @@ import Loader from '../../Shared/Loader';
 import { Link } from 'react-router';
 import HomeCarousel from '../../Components/HomeCarousel';
 import { motion } from "motion/react"
+import Card from '../../Components/Card';
 
 const howItWorksData = [
     {
@@ -150,17 +151,7 @@ export default function HomePage() {
                                 <Loader />
                             </div>
                             :
-                            latestIssue?.map(e => (
-                                <div key={e._id} className='shadow-md/30 rounded-xl p-4 flex flex-col justify-between gap-4 text-sm'>
-                                    <div className='flex items-center justify-between w-full gap-3'>
-                                        <h6 className='text-2xl font-semibold'>{e.title}</h6>
-                                        <p>{new Date(e.createdAt).toLocaleDateString()}</p>
-                                    </div>
-                                    <img src={e.photo} loading='lazy' alt="issue photo" className='w-full rounded-xl aspect-square object-cover' />
-                                    <p className='line-clamp-2'>{e.description}</p>
-                                    <Link to={`/issue-details/${e._id}`} className='hover:underline italic'>View Details</Link>
-                                </div>
-                            ))
+                            latestIssue?.map(e => <Card key={e._id} e={e} />)
                     }
                 </article>
             </section>

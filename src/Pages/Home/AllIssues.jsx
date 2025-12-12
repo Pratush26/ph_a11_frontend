@@ -4,6 +4,7 @@ import Loader from "../../Shared/Loader"
 import { Link } from "react-router"
 import Error from "../../Shared/Error"
 import { useState } from "react"
+import Card from "../../Components/Card"
 
 export default function AllIssuesPage() {
     const [currentPage, setCurrentPage] = useState(1)
@@ -28,21 +29,11 @@ export default function AllIssuesPage() {
             <article className='grid grid-cols-4 gap-6 w-11/12 mx-auto my-10'>
                 {
                     (isFetching || issueLoading) ?
-                        <div className='min-h-[90vh] w-fit mx-auto flex items-center justify-center col-span-3'>
+                        <div className='min-h-[90vh] w-fit mx-auto flex items-center justify-center col-span-4'>
                             <Loader />
                         </div>
                         :
-                        AllIssues?.map(e => (
-                            <div key={e._id} className='shadow-md/30 rounded-xl p-4 flex flex-col justify-between gap-4 text-sm'>
-                                <div className='flex items-center justify-between w-full gap-3'>
-                                    <h6 className='text-lg font-bold'>{e.title}</h6>
-                                    <p>{new Date(e.createdAt).toLocaleDateString()}</p>
-                                </div>
-                                <img src={e.photo} loading='lazy' alt="issue photo" className='w-full rounded-xl aspect-square object-cover' />
-                                <p className='line-clamp-2'>{e.description}</p>
-                                <Link to={`/issue-details/${e._id}`} className='hover:underline italic'>View Details</Link>
-                            </div>
-                        ))
+                        AllIssues?.map(e => <Card key={e._id} e={e} />)
                 }
             </article>
             <div className="flex justify-center gap-2 items-center mt-6">

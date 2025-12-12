@@ -62,7 +62,7 @@ export default function AssignIssues() {
                                 <td>{e.category}</td>
                                 <td>{new Date(e.createdAt).toLocaleString()}</td>
                                 <td>
-                                    <span className={`${e.status === "pending" ? "bg-amber-500" : e.status === "in-progress" ? "bg-blue-500" : e.status === "resolved" ? "bg-emerald-500" : e.status === "closed" ? "bg-gray-500" : "bg-rose-500"} rounded-full text-white py-0.5 px-3`}>
+                                    <span className={`${e.status === "pending" ? "bg-amber-500" : e.status === "working" ? "bg-violet-500" : e.status === "in-progress" ? "bg-blue-500" : e.status === "resolved" ? "bg-emerald-500" : e.status === "closed" ? "bg-gray-500" : "bg-rose-500"} rounded-full text-white py-0.5 px-3`}>
                                         {e.status}
                                     </span>
                                 </td>

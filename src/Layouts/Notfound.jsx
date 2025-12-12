@@ -5,7 +5,7 @@ import { Link } from "react-router";
 
 export default function NotfoundPage() {
     return (
-        <div className="flex flex-col items-center justify-between min-h-screen">
+        <div className="flex flex-col items-center justify-between min-h-screen w-full">
             <NavBar />
             <main className="w-full flex flex-col items-center my-10 gap-4">
             <img src={Img} alt="page not found" className="w-3/4 mx-auto max-w-xs" />
