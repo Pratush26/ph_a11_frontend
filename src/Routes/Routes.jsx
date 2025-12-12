@@ -21,6 +21,7 @@ import TermsCondition from "../Pages/Home/Terms";
 import ContactPage from "../Pages/Home/Contact";
 import Profile from "../Pages/Dashboard/Profile";
 import AboutUsPage from "../Pages/Home/About";
+import AssignedIssues from "../Pages/Dashboard/staff/AssignedIssues";
 
 export const router = createBrowserRouter([
     {
@@ -104,6 +105,10 @@ export const router = createBrowserRouter([
             {
                 path: "my-issues",
                 Component: MyIssuePage
+            },
+            {
+                path: "assigned-issues",
+                Component: AssignedIssues
             },
         ]
     },
