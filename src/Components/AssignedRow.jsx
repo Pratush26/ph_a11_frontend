@@ -20,6 +20,7 @@ export default function AssignedRow({ e, key }) {
             showToast({ type: "success", msg: res.data.message })
             queryClient.invalidateQueries({ queryKey: ["assigned"] })
             queryClient.invalidateQueries({ queryKey: ["issues"] })
+            queryClient.invalidateQueries({ queryKey: ["analytics"] })
         },
 
         onError: (err) => {

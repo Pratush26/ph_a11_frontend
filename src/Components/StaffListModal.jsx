@@ -24,6 +24,8 @@ export default function StaffListModal({ setIsModalOpened, issueId }) {
         onSuccess: (res) => {
             showToast({ type: "success", msg: res.data.message })
             queryClient.invalidateQueries({ queryKey: ["staffs"] })
+            queryClient.invalidateQueries({ queryKey: ["analytics"] })
+            queryClient.invalidateQueries({ queryKey: ["assigned"] })
         },
 
         onError: (err) => {
