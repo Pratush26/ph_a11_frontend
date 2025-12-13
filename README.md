@@ -1,11 +1,38 @@
 # InfraCare
-### Features
-### Used Tech
- [Live link 1](https://infracare-b79a4.web.app)     
- [Github - Frontend](https://github.com/Pratush26/ph_a11_frontend)      
- [Github - Backend](https://github.com/Pratush26/ph_11_backend)
+This is Infrastructure problem resolving platform. It's make easier to track the issue's state and set their priority that easily reachable to the concerned authority.
 
-## React + Vite
+### Links
+- [Live link 1](https://infracare-b79a4.web.app)
+- [Live link 2](https://infracare-b79a4.firebaseapp.com)
+- [Github - Frontend](https://github.com/Pratush26/ph_a11_frontend)
+- [Github - Backend](https://github.com/Pratush26/ph_11_backend)
+
+### Features
+- User can create account and submit issue
+- Admin can create staffs and assign them issues
+- User can boost their issues and purchase premium subscription with integrated payment method
+- staffs can update their assigned issues
+- user can upvote others issues and update their profile and issues
+- User's have their own dashboard beside profile
+- Various types of filtering option
+- Payment Invoice downloading facilities
+
+### Used Tech
+- React
+- tanstack-query
+- Cloudinary
+- axios
+- firebase
+- motion
+- Tailwind CSS
+- react-router
+- Embla Carousel
+- React lottie
+- react-hook-form
+- recharts
+- sweetalert2
+
+### React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
