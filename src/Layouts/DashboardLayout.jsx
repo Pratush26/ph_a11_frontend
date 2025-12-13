@@ -1,13 +1,22 @@
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, useLocation } from "react-router";
 import Logo from '../assets/logo.svg'
 import Footer from "../Shared/Footer";
 import { RxCross2 } from "react-icons/rx";
 import { HiOutlineMenu } from "react-icons/hi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SideBar from "../Shared/SideBar";
 
 export default function DashboardLayout() {
     const [menuOpened, setMenuOpened] = useState(false)
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth"
+        });
+    }, [pathname]);
     return (
         <div className="flex flex-col items-center justify-between min-h-screen">
             <header className="w-full bg-white shadow-md py-4 sticky z-100 top-0">

@@ -112,7 +112,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "assigned-issues",
-                element: <PrivateRoute permitTo="staff"><AssignIssues /></PrivateRoute>
+                element: <PrivateRoute permitTo="staff"><AssignedIssues /></PrivateRoute>
             },
         ]
     },

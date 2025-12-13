@@ -8,6 +8,7 @@ import { showToast } from "../../../Utils/ShowToast"
 import { FcGoogle } from "react-icons/fc"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 import axios from "axios"
+import { useQueryClient } from "@tanstack/react-query"
 
 export default function LoginPage() {
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm()
@@ -15,6 +16,7 @@ export default function LoginPage() {
     const [isVisible, setIsVisible] = useState(false)
     const { state } = useLocation()
     const navigate = useNavigate()
+    const queryClient = useQueryClient()
     if (user) navigate(state || "/")
 
     const formSubmit = async (data) => {
@@ -24,6 +26,8 @@ export default function LoginPage() {
             if (res) {
                 showToast({ type: "success", msg: `Welcome Back, ${res.user?.displayName}` });
                 reset()
+                queryClient.invalidateQueries({ queryKey: ["issues"] })
+                queryClient.invalidateQueries({ queryKey: ["analytics"] })
             }
             else showToast({ type: "error", msg: "Something went wrong!" });
         } catch (err) {
@@ -37,6 +41,8 @@ export default function LoginPage() {
             const res = await googleSignIn()
             if (!res.user?.email) throw new Error("Google login failed")
 
+            queryClient.invalidateQueries({ queryKey: ["issues"] })
+            queryClient.invalidateQueries({ queryKey: ["analytics"] })
             await axios.post(`${import.meta.env.VITE_SERVER}/citizen`, { name: res.user.displayName, email: res.user.email, photo: res.user.photoURL });
             showToast({ type: "success", msg: "Logged in with Google" })
 

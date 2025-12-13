@@ -21,6 +21,7 @@ export default function Dashboard() {
         )
     }
     if (analyticsErr) return <Error msg={analyticsErr.message} />;
+    console.log(analytics)
     return (
         <main className="w-11/12 my-10 mx-auto">
             <h3 className="text-3xl font-semibold text-center my-8">Welcome to Dashboard</h3>

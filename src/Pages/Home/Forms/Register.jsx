@@ -7,6 +7,7 @@ import { showToast } from "../../../Utils/ShowToast"
 import { useContext, useState } from "react"
 import { AuthContext } from "../../../Context/AuthContext"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
+import { useQueryClient } from "@tanstack/react-query"
 
 export default function RegisterPage() {
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm()
@@ -14,6 +15,7 @@ export default function RegisterPage() {
     const [isVisible, setIsVisible] = useState(false)
     const { state } = useLocation()
     const navigate = useNavigate()
+    const queryClient = useQueryClient()
     if (user) navigate(state || "/")
 
     const formSubmit = async (data) => {
@@ -34,6 +36,8 @@ export default function RegisterPage() {
 
             showToast({ type: "success", msg: "Successfully registered" });
             reset();
+            queryClient.invalidateQueries({ queryKey: ["issues"] })
+            queryClient.invalidateQueries({ queryKey: ["analytics"] })
         } catch (err) {
             console.error(err);
             showToast({ type: "error", msg: "Something went wrong!" });

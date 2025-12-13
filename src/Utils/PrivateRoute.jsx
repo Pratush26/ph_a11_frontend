@@ -13,7 +13,7 @@ export default function PrivateRoute({ children, permitTo }) {
             </div>
         )
     }
-    if (userInfo.role !== permitTo) {
+    if (userInfo?.role !== permitTo) {
         showToast({ type: "error", msg: "Forbidden Access!" });
         signOutUser();
         return <Navigate to="/" />

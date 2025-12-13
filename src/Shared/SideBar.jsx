@@ -56,22 +56,22 @@ export default function SideBar({ menuOpened }) {
                                     <RiPoliceBadgeLine className="text-blue-700 text-base" />
                                 </span>
                                 :
-                                <button onClick={handleSubscribe} disabled={userInfo.premium} className="btn btn-primary trns rounded-md">Subscribe</button>
+                                <button onClick={handleSubscribe} disabled={userInfo?.premium} className="btn btn-primary trns rounded-md">Subscribe</button>
                         }
                     </div>
             }
             <NavLink className="trns sideLink flex gap-2 items-center" to='/dashboard'><GrOverview /> Dashboard</NavLink>
             {
-                userInfo.role === "admin"
+                userInfo?.role === "admin"
                 &&
                 <>
                     <NavLink className="trns sideLink flex gap-2 items-center" to='/manage-users'><FaRegUser /> Manage Users</NavLink>
                     <NavLink className="trns sideLink flex gap-2 items-center" to='/manage-staffs'><FaUserNurse />Manage Staffs</NavLink>
-                    <NavLink className="trns sideLink flex gap-2 items-center" to='/assign-issues'><MdOutlineAssignmentTurnedIn />Assign Issues</NavLink>
+                    <NavLink className="trns sideLink flex gap-2 items-center" to='/assign-issues'><MdOutlineAssignmentTurnedIn />All Issues</NavLink>
                 </>
             }
             {
-                userInfo.role === "staff"
+                userInfo?.role === "staff"
                 &&
                 <NavLink className="trns sideLink flex gap-2 items-center" to='/assigned-issues'><GrStakeholder />Assigned Issues</NavLink>
             }
