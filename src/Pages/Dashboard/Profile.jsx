@@ -4,7 +4,6 @@ import { RiPoliceBadgeLine } from "react-icons/ri"
 
 export default function Profile() {
     const { userInfo, signOutUser } = useContext(UserContext)
-    console.log(userInfo)
     return (
         <main className="w-11/12 flex flex-col items-center justify-center gap-6 min-h-[70vh] mx-auto my-10">
             <section className="flex items-center justify-center gap-4">

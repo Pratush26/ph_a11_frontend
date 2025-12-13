@@ -22,6 +22,10 @@ import ContactPage from "../Pages/Home/Contact";
 import Profile from "../Pages/Dashboard/Profile";
 import AboutUsPage from "../Pages/Home/About";
 import AssignedIssues from "../Pages/Dashboard/staff/AssignedIssues";
+import AuthenticateRoute from "../Utils/AuthenticateRoute";
+import PrivateRoute from "../Utils/PrivateRoute";
+import DashboardLoding from "../Layouts/DashboardLoading";
+import DashboardErrorPage from "../Layouts/DashboardErrPage";
 
 export const router = createBrowserRouter([
     {
@@ -40,7 +44,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "issue-details/:id",
-                Component: IssueDetails
+                element: <AuthenticateRoute><IssueDetails /></AuthenticateRoute>
             },
             {
                 path: "register",
@@ -70,45 +74,45 @@ export const router = createBrowserRouter([
     },
     {
         path: '/',
-        // hydrateFallbackElement: <LoadingUi />,
-        // errorElement: <ErrorPage />,
+        hydrateFallbackElement: <DashboardLoding />,
+        errorElement: <DashboardErrorPage />,
         Component: DashboardLayout,
         children: [
             {
                 path: "dashboard",
-                Component: Dashboard
+                element: <AuthenticateRoute><Dashboard /></AuthenticateRoute>
             },
             {
                 path: "profile",
-                Component: Profile
+                element: <AuthenticateRoute><Profile /></AuthenticateRoute>
             },
             {
                 path: "manage-staffs",
-                Component: ManageStaffsPage
+                element: <PrivateRoute permitTo="admin"><ManageStaffsPage /></PrivateRoute>
             },
             {
                 path: "manage-users",
-                Component: ManageUsersPage
+                element: <PrivateRoute permitTo="admin"><ManageUsersPage /></PrivateRoute>
             },
             {
                 path: "assign-issues",
-                Component: AssignIssues
+                element: <PrivateRoute permitTo="admin"><AssignIssues /></PrivateRoute>
             },
             {
                 path: "transactions",
-                Component: TransactionsPage
+                element: <AuthenticateRoute><TransactionsPage /></AuthenticateRoute>
             },
             {
                 path: "report-issue",
-                Component: ReportIssue
+                element: <AuthenticateRoute><ReportIssue /></AuthenticateRoute>
             },
             {
                 path: "my-issues",
-                Component: MyIssuePage
+                element: <AuthenticateRoute><MyIssuePage /></AuthenticateRoute>
             },
             {
                 path: "assigned-issues",
-                Component: AssignedIssues
+                element: <PrivateRoute permitTo="staff"><AssignIssues /></PrivateRoute>
             },
         ]
     },
