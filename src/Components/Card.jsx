@@ -1,7 +1,31 @@
-import { AiOutlineLike } from "react-icons/ai";
-import { Link } from "react-router";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
+import { Link, Navigate } from "react-router";
+import { useAxios } from "../Hooks/UseAxios";
+import { useContext } from "react";
+import { UserContext } from "../Context/AuthContext";
+import { showToast } from "../Utils/ShowToast";
 
 export default function Card({ e }) {
+    const { user } = useContext(UserContext)
+    const axis = useAxios()
+    const queryClient = useQueryClient()
+    const upvoteMutation = useMutation({
+        mutationFn: async () => {
+            return axis.patch("/upvote", { issueId: e._id })
+        },
+
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["issues"] })
+            queryClient.invalidateQueries({ queryKey: ['issue'] })
+        },
+    })
+    const handleUpvote = () => {
+        if (!user) {
+            showToast({ type: "warning", msg: "Login is required!" });
+            <Navigate state={"/all-issues"} to="/login" />
+        } else upvoteMutation.mutate()
+    }
     return (
         <div className='shadow-md/30 rounded-xl p-4 flex flex-col justify-between gap-2 text-sm'>
             <h6 className='text-lg font-bold'>{e.title}</h6>
@@ -22,8 +46,15 @@ export default function Card({ e }) {
                 </span>
                 </p>
                 <span className="flex items-start text-base gap-1">
-                    <p>{e?.voted.length || 0}</p>
-                    <AiOutlineLike className="text-xl cursor-pointer" />
+                    <p>{e?.totalVoted || 0}</p>
+                    <button onClick={() => handleUpvote()}>
+                        {
+                            e?.isVoted ?
+                                <AiFillLike className="text-xl cursor-pointer" />
+                                :
+                                <AiOutlineLike className="text-xl cursor-pointer" />
+                        }
+                    </button>
                 </span>
             </div>
             <p className="line-clamp-1">Address: <span className="font-medium">{e?.location}</span></p>

@@ -18,27 +18,27 @@ export default function SideBar({ menuOpened }) {
     const handleSubscribe = async () => {
         try {
             Swal.fire({
-                        title: `Do you want to explore our Premium Subscriptions?`,
-                        text: "1000৳ payment required for Premium subscription!",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                        confirmButtonText: "Subscribe now!",
-                        cancelButtonText: "Cancel"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            axis.post("/premium-checkout-session").then(res => {
-                                window.location.href = res.data.url
-                            }).catch(err => {
-                                showToast({ type: "error", message: err?.message || err || "Payment failed" })
-                                console.error(err)
-                            })
-                        }
-                    });
-                } catch (error) {
-                    console.error(error)
-                    showToast({ type: "error", message: error?.message || "Payment failed" })
+                title: `Do you want to explore our Premium Subscriptions?`,
+                text: "1000৳ payment required for Premium subscription!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Subscribe now!",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axis.post("/premium-checkout-session").then(res => {
+                        window.location.href = res.data.url
+                    }).catch(err => {
+                        showToast({ type: "error", message: err?.message || err || "Payment failed" })
+                        console.error(err)
+                    })
+                }
+            });
+        } catch (error) {
+            console.error(error)
+            showToast({ type: "error", message: error?.message || "Payment failed" })
         }
     }
     return (
@@ -61,13 +61,23 @@ export default function SideBar({ menuOpened }) {
                     </div>
             }
             <NavLink className="trns sideLink flex gap-2 items-center" to='/dashboard'><GrOverview /> Dashboard</NavLink>
-            <NavLink className="trns sideLink flex gap-2 items-center" to='/manage-users'><FaRegUser /> Manage Users</NavLink>
-            <NavLink className="trns sideLink flex gap-2 items-center" to='/manage-staffs'><FaUserNurse />Manage Staffs</NavLink>
-            <NavLink className="trns sideLink flex gap-2 items-center" to='/assign-issues'><MdOutlineAssignmentTurnedIn />Assign Issues</NavLink>
+            {
+                userInfo.role === "admin"
+                &&
+                <>
+                    <NavLink className="trns sideLink flex gap-2 items-center" to='/manage-users'><FaRegUser /> Manage Users</NavLink>
+                    <NavLink className="trns sideLink flex gap-2 items-center" to='/manage-staffs'><FaUserNurse />Manage Staffs</NavLink>
+                    <NavLink className="trns sideLink flex gap-2 items-center" to='/assign-issues'><MdOutlineAssignmentTurnedIn />Assign Issues</NavLink>
+                </>
+            }
+            {
+                userInfo.role === "staff"
+                &&
+                <NavLink className="trns sideLink flex gap-2 items-center" to='/assigned-issues'><GrStakeholder />Assigned Issues</NavLink>
+            }
             <NavLink className="trns sideLink flex gap-2 items-center" to='/transactions'><FaMoneyBillTransfer />Transactions</NavLink>
             <NavLink className="trns sideLink flex gap-2 items-center" to='/report-issue'><TbMessageReportFilled />Report Issue</NavLink>
             <NavLink className="trns sideLink flex gap-2 items-center" to='/my-issues'><TbMessageReportFilled />My Issues</NavLink>
-            <NavLink className="trns sideLink flex gap-2 items-center" to='/assigned-issues'><GrStakeholder />Assigned Issues</NavLink>
             <NavLink className="trns sideLink flex gap-2 items-center" to='/profile'><FaRegUserCircle />Profile</NavLink>
             <button onClick={() => signOutUser()} className="flex items-center gap-2 w-full py-1.5 px-3 rounded-sm trns hover:bg-gray-200 cursor-pointer"><TbLogout2 /> Log out</button>
         </aside>

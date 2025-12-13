@@ -2,11 +2,14 @@ import { useQuery } from "@tanstack/react-query"
 import { useParams } from "react-router"
 import Loader from "../../Shared/Loader"
 import Error from "../../Shared/Error"
-import { AiOutlineLike } from "react-icons/ai";
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { IoCheckmarkDoneCircle, IoCheckmarkDoneCircleOutline } from "react-icons/io5";
 import { useAxios } from "../../Hooks/UseAxios"
+import { useContext } from "react";
+import { UserContext } from "../../Context/AuthContext";
 
 export default function IssueDetails() {
+    const { user } = useContext(UserContext)
     const { id } = useParams()
     const axis = useAxios()
     const { data: e, isLoading: issueLoading, error: dataErr } = useQuery({
@@ -23,13 +26,22 @@ export default function IssueDetails() {
         )
     }
     if (dataErr) return <Error msg={dataErr.message} />;
-    console.log(e)
     return (
         <main className="w-full my-10">
             <section className="grid grid-cols-2 items-center-safe justify-items-center-safe w-5/6 mx-auto gap-6 text-sm">
                 <img src={e?.photo} alt="issue photo" className="w-11/12 h-auto rounded-xl object-cover" />
                 <article>
-                    <h1 className="text-3xl font-bold">{e?.title}</h1>
+                    <div className="flex items-center justify-between gap-2 my-5">
+                        <h1 className="text-3xl font-bold">{e?.title}</h1>
+                        {
+                            user?.email === e?.user?.email
+                            &&
+                            <span className="flex justify-end gap-2 flex-wrap">
+                                <button className="btn btn-primary trns rounded-full">Edit</button>
+                                <button className="btn bg-rose-600 trns rounded-full hover:scale-103 hover:shadow-md/20 text-white font-bold text-sm">Delete</button>
+                            </span>
+                        }
+                    </div>
                     <div className="flex items-center justify-between gap-4 my-5">
                         <span
                             className={`px-4 py-1.5 rounded-full text-white font-medium
@@ -39,8 +51,13 @@ export default function IssueDetails() {
                             {e?.status}
                         </span>
                         <span className="flex items-start text-base gap-2">
-                            <p>{ 0}</p>
-                            <AiOutlineLike className="text-xl cursor-pointer" />
+                            <p>{e?.totalVoted || 0}</p>
+                            {
+                                e?.isVoted ?
+                                    <AiFillLike className="text-xl cursor-pointer" />
+                                    :
+                                    <AiOutlineLike className="text-xl cursor-pointer" />
+                            }
                         </span>
                     </div>
                     <div className="flex items-center justify-between gap-4">
@@ -78,13 +95,13 @@ export default function IssueDetails() {
             <section className="flex flex-col items-center mt-10 w-3/4 mx-auto space-y-3">
                 <h4 className="text-3xl font-bold">Timelines</h4>
                 {
-                    e?.state?.map((s, i) => (
+                    e?.state?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((s, i) => (
                         <div key={i} className="grid grid-cols-[40%_20%_40%] w-full items-center-safe justify-items-center-safe">
                             <p className="justify-self-end">{s.title}</p>
                             <span className="text-4xl">
                                 {
                                     s.completed ?
-                                        <IoCheckmarkDoneCircle />
+                                        <IoCheckmarkDoneCircle className="text-blue-600" />
                                         :
                                         <IoCheckmarkDoneCircleOutline />
                                 }
