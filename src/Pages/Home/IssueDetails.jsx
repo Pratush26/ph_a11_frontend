@@ -5,11 +5,17 @@ import Error from "../../Shared/Error"
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { IoCheckmarkDoneCircle, IoCheckmarkDoneCircleOutline } from "react-icons/io5";
 import { useAxios } from "../../Hooks/UseAxios"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../Context/AuthContext";
+import UpdateIssueModal from "../../Components/UpdateIssueModal";
+import BoostPriorityButton from "../../Components/BoostPriorityButton";
+import DeleteIssueButton from "../../Components/DeleteIssue";
+import UpdateIssueImage from "../../Components/IssueImgModal";
 
 export default function IssueDetails() {
     const { user } = useContext(UserContext)
+    const [isModalOpened, setIsModalOpened] = useState(false)
+    const [modalOpened, setModalOpened] = useState(false)
     const { id } = useParams()
     const axis = useAxios()
     const { data: e, isLoading: issueLoading, error: dataErr } = useQuery({
@@ -26,22 +32,15 @@ export default function IssueDetails() {
         )
     }
     if (dataErr) return <Error msg={dataErr.message} />;
+
     return (
-        <main className="w-full my-10">
+        <main className="w-full my-10 relative">
+            {isModalOpened && <UpdateIssueModal setIsModalOpened={setIsModalOpened} issue={e} />}
+            {modalOpened && <UpdateIssueImage setModalOpened={setModalOpened} issue={e} />}
             <section className="grid grid-cols-2 items-center-safe justify-items-center-safe w-5/6 mx-auto gap-6 text-sm">
                 <img src={e?.photo} alt="issue photo" className="w-11/12 h-auto rounded-xl object-cover" />
                 <article>
-                    <div className="flex items-center justify-between gap-2 my-5">
-                        <h1 className="text-3xl font-bold">{e?.title}</h1>
-                        {
-                            user?.email === e?.user?.email
-                            &&
-                            <span className="flex justify-end gap-2 flex-wrap">
-                                <button className="btn btn-primary trns rounded-full">Edit</button>
-                                <button className="btn bg-rose-600 trns rounded-full hover:scale-103 hover:shadow-md/20 text-white font-bold text-sm">Delete</button>
-                            </span>
-                        }
-                    </div>
+                    <h1 className="text-3xl font-bold">{e?.title}</h1>
                     <div className="flex items-center justify-between gap-4 my-5">
                         <span
                             className={`px-4 py-1.5 rounded-full text-white font-medium
@@ -60,6 +59,24 @@ export default function IssueDetails() {
                             }
                         </span>
                     </div>
+                    {
+                        user?.email === e?.user?.email
+                        &&
+                        <div className="flex items-center justify-end gap-2 my-5">
+                            {e?.priority === "low" && <BoostPriorityButton title={e.title} id={e._id} />}
+                            {
+                                e?.status === "pending"
+                                &&
+                                <button onClick={() => setModalOpened(true)} className="btn btn-out trns rounded-full">Update Image</button>
+                            }
+                            {
+                                e?.status === "pending"
+                                &&
+                                <button onClick={() => setIsModalOpened(true)} className="btn btn-out trns rounded-full">Edit</button>
+                            }
+                            <DeleteIssueButton title={e.title} id={e._id} />
+                        </div>
+                    }
                     <div className="flex items-center justify-between gap-4">
                         <h4 className="text-base my-2 font-semibold">Sumitted By: </h4>
                         <p>{new Date(e?.createdAt).toLocaleString()}</p>

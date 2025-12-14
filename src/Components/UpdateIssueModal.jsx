@@ -1,49 +1,45 @@
 import { useForm } from "react-hook-form"
-import '../../../Utils/form.css'
-import axios from "axios"
-import { useAxios } from "../../../Hooks/UseAxios"
-import { showToast } from "../../../Utils/ShowToast"
-import Error from "../../../Shared/Error"
-import Loader from "../../../Shared/Loader"
+import '../Utils/form.css'
+import { showToast } from "../Utils/ShowToast"
+import { AuthContext } from "../Context/AuthContext"
+import { FaEye, FaEyeSlash } from "react-icons/fa"
+import { RxCross2 } from "react-icons/rx"
+import { useAxios } from "../Hooks/UseAxios"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import axios from "axios"
+import Loader from "../Shared/Loader"
 
-export default function ReportIssue() {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm()
+export default function UpdateIssueModal({ setIsModalOpened, issue }) {
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            title:issue.title,
+            category:issue.category,
+            location:issue.location,
+            description:issue.description
+        }
+    })
     const axis = useAxios()
     const queryClient = useQueryClient()
-
-    const { data: categoryList, isLoading, error: dataError } = useQuery({
+    const { data: categoryList, isLoading } = useQuery({
         queryKey: ['categoryList'],
         queryFn: () => axios(`${import.meta.env.VITE_SERVER}/categories`).then(res => res.data),
         staleTime: 5 * 60 * 1000,
     })
-
     const createIssueMutation = useMutation({
         mutationFn: async (data) => {
-            const formData = new FormData()
-            formData.append("file", data.image[0])
-            formData.append("upload_preset", import.meta.env.VITE_Cloudinary_Upload_Preset)
-            formData.append("folder", "issue_images")
-
-            const imgRes = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_Cloudinary_CloudName}/image/upload`, formData)
-
-            if (!imgRes?.data?.secure_url) throw new Error("Image upload failed")
-
-            return axis.post("/issue", {
+            return axis.patch("/issue", {
+                issueId: issue._id,
                 title: data.title,
                 category: data.category,
                 description: data.description,
-                location: data.location,
-                photo: imgRes.data.secure_url,
-            })
+                location: data.location
+            });
         },
-
         onSuccess: (res) => {
             showToast({ type: "success", msg: res.data.message })
-            reset()
             queryClient.invalidateQueries({ queryKey: ["issues"] })
+            queryClient.invalidateQueries({ queryKey: ["issue"] })
             queryClient.invalidateQueries({ queryKey: ["categoryList"] })
-            queryClient.invalidateQueries({ queryKey: ["citizens"] })
         },
 
         onError: (err) => {
@@ -52,32 +48,27 @@ export default function ReportIssue() {
                 msg: err.response?.data?.message || "Something went wrong!"
             })
         }
-    })
-
-    if (isLoading) return (
-        <div className="flex w-full min-h-[90vh] items-center justify-center">
-            <Loader />
-        </div>
-    )
-    if (dataError) return <Error msg={dataError.message} />;
-
+    });
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center w-full min-h-[50vh]">
+                <Loader />
+            </div>
+        )
+    }
     const formSubmit = (data) => createIssueMutation.mutate(data)
-
     return (
-        <form onSubmit={handleSubmit(formSubmit)} className="bg-white flex flex-col items-center gap-3 p-10 shadow-md/40 rounded-2xl w-3/4 mx-auto my-8">
+        <form onSubmit={handleSubmit(formSubmit)} className="absolute bg-white z-90 right-1/2 top-0 translate-x-1/2 flex flex-col items-center gap-3 p-10 shadow-md/40 rounded-2xl w-3/4">
+            <div className="w-full flex items-center justify-between gap-2">
+                <h4 className="text-xl font-bold">Update Issue Details</h4>
+                <button onClick={() => setIsModalOpened(false)} type="button" className="cursor-pointer">
+                    <RxCross2 />
+                </button>
+            </div>
             <fieldset className="grid grid-cols-2 gap-4">
-                <legend className="text-center font-bold text-3xl my-4">Add Report</legend>
                 <div className="w-full">
                     {errors.title ? <p className="text-sm text-rose-600">{errors.title.message}</p> : <label htmlFor="title">Title :</label>}
                     <input type="text" {...register("title", { required: "title is required" })} placeholder="Enter report title" id="title" />
-                </div>
-                <div className="w-full">
-                    {errors.image ? <p className="text-sm text-rose-600">{errors.image.message}</p> : <label htmlFor="image">Image :</label>}
-                    <input type="file" {...register("image", { required: "image is required" })} id="image" />
-                </div>
-                <div className="w-full">
-                    {errors.location ? <p className="text-sm text-rose-600">{errors.location.message}</p> : <label htmlFor="location">Location :</label>}
-                    <input type="text" {...register("location", { required: "location is required" })} placeholder="Enter location" id="location" />
                 </div>
                 <div className="w-full">
                     {errors.category ? <p className="text-sm text-rose-600">{errors.category.message}</p> : <label htmlFor="category">category :</label>}
@@ -89,16 +80,15 @@ export default function ReportIssue() {
                     </datalist>
                 </div>
                 <div className="w-full col-span-2">
+                    {errors.location ? <p className="text-sm text-rose-600">{errors.location.message}</p> : <label htmlFor="location">Location :</label>}
+                    <input type="text" {...register("location", { required: "location is required" })} placeholder="Enter location" id="location" />
+                </div>
+                <div className="w-full col-span-2">
                     {errors.description ? <p className="text-sm text-rose-600">{errors.description.message}</p> : <label htmlFor="description">Description :</label>}
                     <textarea {...register("description", { required: "description is required" })} placeholder="Enter description" id="description" />
                 </div>
             </fieldset>
-            <button
-                type="submit"
-                disabled={createIssueMutation.isPending}
-                className="btn btn-primary trns rounded-sm shadow-md/60 ">
-                {createIssueMutation.isPending ? "Adding..." : "Add"}
-            </button>
+            <button type="submit" disabled={createIssueMutation.isPending} className="btn btn-primary trns rounded-sm shadow-md/60 ">{createIssueMutation.isPending ? "Updating..." : "Update"}</button>
         </form>
     )
 }

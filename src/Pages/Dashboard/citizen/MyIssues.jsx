@@ -3,14 +3,19 @@ import { useQuery } from "@tanstack/react-query"
 import Loader from "../../../Shared/Loader"
 import Error from "../../../Shared/Error"
 import '../../../Utils/table.css'
-import Swal from "sweetalert2"
-import { showToast } from "../../../Utils/ShowToast"
+import { Link } from "react-router"
+import BoostPriorityButton from "../../../Components/BoostPriorityButton"
+import UpdateIssueModal from "../../../Components/UpdateIssueModal"
+import { useState } from "react"
+import DeleteIssueButton from "../../../Components/DeleteIssue"
 
 export default function MyIssuePage() {
     const axis = useAxios()
+    const [isModalOpened, setIsModalOpened] = useState(false)
+    const [targetedIssue, setTargetedIssue] = useState(null)
     const { data: myIssue, isLoading, error: dataError } = useQuery({
         queryKey: ['issues', 'my'],
-        queryFn: () => axis('/my-issues').then(res => res.data),
+        queryFn: () => axis('/privateIssues').then(res => res.data),
         staleTime: 5 * 60 * 1000,
     })
     if (isLoading) return (
@@ -19,30 +24,13 @@ export default function MyIssuePage() {
         </div>
     )
     if (dataError) return <Error msg={dataError.message} />;
-    const handleBoost = (title, id) => {
-        Swal.fire({
-            title: `Do you want to boost "${title}" issue?`,
-            text: "You can boost this issue by paying 100৳!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Pay now!",
-            cancelButtonText: "No"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axis.post(`/checkout-session`, { id, price: 100 }).then(res => {
-                    window.location.href = res.data.url
-                }).catch(err => {
-                    showToast({ type: "error", message: err?.message || err || "Payment failed" })
-                    console.error(err)
-                })
-            }
-        });
+    const handleEdit = (data) => {
+        setTargetedIssue(data)
+        setIsModalOpened(true)
     }
-
     return (
         <main className="relative w-11/12 mx-auto min-h-screen">
+            {isModalOpened && <UpdateIssueModal setIsModalOpened={setIsModalOpened} issue={targetedIssue} />}
             <h1 className="text-4xl my-8 font-semibold text-center">My Issues</h1>
             <div className="flex w-full justify-between items-center gap-4">
                 <p>Total Issues ({myIssue.length})</p>
@@ -67,7 +55,7 @@ export default function MyIssuePage() {
                                     <div className="flex items-center text-start gap-2">
                                         <img src={e.photo} alt="staff photo" className="h-20 w-auto rounded-lg" />
                                         <span>
-                                            <p>{e.title}</p>
+                                            <Link to={`/issue-details/${e._id}`} className="hover:underline" >{e.title}</Link>
                                             <p className="text-xs">{e.location}</p>
                                         </span>
                                     </div>
@@ -85,8 +73,13 @@ export default function MyIssuePage() {
                                 </td>
                                 <td>
                                     <div className="flex gap-2 justify-center">
-                                        {e.priority !== "high" && <button onClick={() => handleBoost(e.title, e._id)} className={`btn-primary btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Boost</button>}
-                                        <button className={`btn-out btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Delete</button>
+                                        {e.priority !== "high" && <BoostPriorityButton title={e.title} id={e._id} />}
+                                        {
+                                            e?.status === "pending"
+                                            &&
+                                            <button onClick={() => handleEdit(e)} className="btn btn-out trns rounded-full">Edit</button>
+                                        }
+                                        <DeleteIssueButton id={e._id} title={e.title} />
                                     </div>
                                 </td>
                             </tr>
