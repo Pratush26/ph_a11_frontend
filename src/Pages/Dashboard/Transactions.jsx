@@ -1,11 +1,10 @@
 import { useState } from "react"
-import AddStaffForm from "../../../Components/AddStaff"
-import { useAxios } from "../../../Hooks/UseAxios"
 import { useQuery } from "@tanstack/react-query"
-import Loader from "../../../Shared/Loader"
-import Error from "../../../Shared/Error"
-import '../../../Utils/table.css'
+import '../../Utils/table.css'
 import { Link } from "react-router"
+import { useAxios } from "../../Hooks/UseAxios"
+import Error from "../../Shared/Error"
+import Loader from "../../Shared/Loader"
 
 export default function TransactionsPage() {
     const [currentPage, setCurrentPage] = useState(1)
@@ -41,6 +40,7 @@ export default function TransactionsPage() {
                                 <th className="hidden sm:table-cell">Date</th>
                                 <th className="hidden sm:table-cell">Amount</th>
                                 <th className="hidden sm:table-cell">Status</th>
+                                <th className="hidden sm:table-cell">Invoice</th>
                             </tr>
                         </thead>
                         <tbody className="text-gray-800">
@@ -60,6 +60,14 @@ export default function TransactionsPage() {
                                             <span className={`${e.status === "complete" ? "bg-blue-500" : "bg-gray-500"} rounded-full text-white py-0.5 px-3`}>
                                                 {e.status}
                                             </span>
+                                        </td>
+                                        <td>
+                                            <Link state={[{
+                                                transactionId: e.transactionId,
+                                                date: e.issue ?? "",
+                                                paidBy: e.paidBy,
+                                                total: e.amount,
+                                            }]} to='/invoice' className="btn btn-out rounded-lg trnsition shadow-md">Download</Link>
                                         </td>
                                     </tr>
                                 ))

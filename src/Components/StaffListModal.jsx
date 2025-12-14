@@ -26,6 +26,8 @@ export default function StaffListModal({ setIsModalOpened, issueId }) {
             queryClient.invalidateQueries({ queryKey: ["staffs"] })
             queryClient.invalidateQueries({ queryKey: ["analytics"] })
             queryClient.invalidateQueries({ queryKey: ["assigned"] })
+            queryClient.invalidateQueries({ queryKey: ["issue"] })
+            queryClient.invalidateQueries({ queryKey: ["issues"] })
         },
 
         onError: (err) => {

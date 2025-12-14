@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 import Loader from "../../../Shared/Loader"
 import Error from "../../../Shared/Error"
 import '../../../Utils/table.css'
+import BlockButton from "../../../Components/BlockButton"
 
 export default function ManageUsersPage() {
     const axis = useAxios()
@@ -17,12 +18,16 @@ export default function ManageUsersPage() {
         </div>
     )
     if (dataError) return <Error msg={dataError.message} />;
-    console.log(staffsData)
     return (
         <main className="relative w-11/12 mx-auto min-h-screen">
             <h1 className="text-4xl my-8 font-semibold text-center">Manage Users</h1>
             <div className="flex w-full justify-between items-center gap-4">
-                <p>Registered Citizens ({staffsData.length})</p>
+                {
+                    staffsData?.length > 0 ?
+                        <p>Registered Citizens ({staffsData.length})</p>
+                        :
+                        <p>No Registered Citizens Found!</p>
+                }
             </div>
             <table className="table-auto text-center text-sm font-medium border-collapse w-full sm:w-11/12 mx-auto overflow-hidden my-6">
                 <thead>
@@ -50,8 +55,7 @@ export default function ManageUsersPage() {
                                 <td>{e.issueCount || 0}</td>
                                 <td>
                                     <div className="flex gap-2 justify-center">
-                                        <button disabled={e.blocked} className={`${e.blocked ? 'btn-out' : 'btn-primary'} btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Block</button>
-                                        <button disabled={!e.blocked} className={`${e.blocked ? 'btn-primary' : 'btn-out'} btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Unblock</button>
+                                        <BlockButton email={e.email} current={e?.blocked} />
                                     </div>
                                 </td>
                             </tr>

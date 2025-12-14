@@ -15,7 +15,6 @@ import AllIssuesPage from "../Pages/Home/AllIssues";
 import IssueDetails from "../Pages/Home/IssueDetails";
 import AfterPayment from "../Pages/Home/Payment/AfterPayment";
 import AssignIssues from "../Pages/Dashboard/admin/AssignIssues";
-import TransactionsPage from "../Pages/Dashboard/admin/Transactions";
 import LoadingUi from "../Layouts/LoadingUi";
 import TermsCondition from "../Pages/Home/Terms";
 import ContactPage from "../Pages/Home/Contact";
@@ -26,6 +25,8 @@ import AuthenticateRoute from "../Utils/AuthenticateRoute";
 import PrivateRoute from "../Utils/PrivateRoute";
 import DashboardLoding from "../Layouts/DashboardLoading";
 import DashboardErrorPage from "../Layouts/DashboardErrPage";
+import PaymentInvoice from "../Pages/Home/Payment/Invoice";
+import TransactionsPage from "../Pages/Dashboard/Transactions";
 
 export const router = createBrowserRouter([
     {
@@ -69,6 +70,10 @@ export const router = createBrowserRouter([
             {
                 path: "terms",
                 Component: TermsCondition
+            },
+            {
+                path: "invoice",
+                Component: PaymentInvoice
             },
         ]
     },

@@ -15,7 +15,7 @@ export default function MyIssuePage() {
     const [targetedIssue, setTargetedIssue] = useState(null)
     const { data: myIssue, isLoading, error: dataError } = useQuery({
         queryKey: ['issues', 'my'],
-        queryFn: () => axis('/privateIssues').then(res => res.data),
+        queryFn: () => axis('/privateIssues?submittedBy=user').then(res => res.data),
         staleTime: 5 * 60 * 1000,
     })
     if (isLoading) return (
@@ -33,7 +33,12 @@ export default function MyIssuePage() {
             {isModalOpened && <UpdateIssueModal setIsModalOpened={setIsModalOpened} issue={targetedIssue} />}
             <h1 className="text-4xl my-8 font-semibold text-center">My Issues</h1>
             <div className="flex w-full justify-between items-center gap-4">
-                <p>Total Issues ({myIssue.length})</p>
+                {
+                    myIssue?.length > 0 ?
+                        <p>Total Issues ({myIssue.length})</p>
+                        :
+                        <p>No Issue Found!</p>
+                }
             </div>
             <table className="table-auto text-center text-sm font-medium border-collapse w-full sm:w-11/12 mx-auto overflow-hidden my-6">
                 <thead>

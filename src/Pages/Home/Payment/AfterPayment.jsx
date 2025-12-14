@@ -48,7 +48,9 @@ export default function AfterPayment() {
                 <h1 className="text-3xl text-secondary font-bold">Payment Successful!</h1>
                 {paymentData?.issueId && <p>Your issue's tracking Id: {paymentData?.issueId}</p>}
                 <p>You successfully paid <span className="uppercase">{paymentData?.currency || "="}</span> {paymentData?.cost || 0}</p>
+                <div className="flex items-center justify-center">
                 <Link to='/' className="btn btn-primary rounded-lg trnsition shadow-md">Back to home</Link>
+                </div>
             </section>
             <Lottie animationData={fireworks} />
         </main>

@@ -9,7 +9,7 @@ export default function AssignedIssues() {
     const axis = useAxios()
     const { data: myIssue, isLoading, error: dataError } = useQuery({
         queryKey: ['issues', 'assigned'],
-        queryFn: () => axis('/privateIssues').then(res => res.data),
+        queryFn: () => axis('/privateIssues?assignedTo=staff').then(res => res.data),
         staleTime: 5 * 60 * 1000,
     })
     if (isLoading) return (

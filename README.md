@@ -31,6 +31,7 @@ This is Infrastructure problem resolving platform. It's make easier to track the
 - react-hook-form
 - recharts
 - sweetalert2
+- React PDF
 
 ### React + Vite
 

@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query"
 import Loader from "../../../Shared/Loader"
 import Error from "../../../Shared/Error"
 import '../../../Utils/table.css'
+import BlockButton from "../../../Components/BlockButton"
 
 export default function ManageStaffsPage() {
     const [isModalOpened, setIsModalOpened] = useState(false)
@@ -26,7 +27,12 @@ export default function ManageStaffsPage() {
             <h1 className="text-4xl my-8 font-semibold text-center">Manage Staffs</h1>
             {isModalOpened && <AddStaffForm setIsModalOpened={setIsModalOpened} />}
             <div className="flex w-full justify-between items-center gap-4">
-                <p>Total Staff ({staffsData.length})</p>
+                {
+                    staffsData?.length > 0 ?
+                        <p>Total Staff ({staffsData.length})</p>
+                        :
+                        <p>No Staff Found!</p>
+                }
                 <button onClick={() => setIsModalOpened(true)} className="btn btn-primary trns shadow-md/30 rounded-md">Add Staff</button>
             </div>
             <table className="table-auto text-center text-sm font-medium border-collapse w-full sm:w-11/12 mx-auto overflow-hidden my-6">
@@ -59,8 +65,7 @@ export default function ManageStaffsPage() {
                                 <td className="text-xs">{e.nid}</td>
                                 <td>
                                     <div className="flex gap-2 justify-center">
-                                        <button disabled={e.blocked} className={`${e.blocked ? 'btn-out' : 'btn-primary'} btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Block</button>
-                                        <button disabled={!e.blocked} className={`${e.blocked ? 'btn-primary' : 'btn-out'} btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Unblock</button>
+                                        <BlockButton email={e.email} current={e?.blocked} />
                                     </div>
                                 </td>
                             </tr>
