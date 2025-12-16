@@ -3,6 +3,7 @@ import { AuthContext } from "../../Context/AuthContext"
 import { RiPoliceBadgeLine } from "react-icons/ri"
 import UpdateUserName from "../../Components/UpdateUserName"
 import UpdateProfilePic from "../../Components/UpdateProfilePic"
+import SubscribeButton from "../../Components/SubscribeButton"
 
 export default function Profile() {
     const { userInfo, signOutUser, resetPassword } = useContext(AuthContext)
@@ -32,6 +33,9 @@ export default function Profile() {
             <div className="flex justify-center gap-4">
                 <button onClick={() => resetPassword(userInfo?.email)} className="btn rounded-md btn-primary trns">Change password</button>
                 <UpdateUserName />
+            </div>
+            <div className="flex justify-center gap-4">
+                {!userInfo?.premium && <SubscribeButton premium={userInfo?.premium} />}
                 <button onClick={signOutUser} className="btn rounded-md btn-out trns">Log out</button>
             </div>
         </main>

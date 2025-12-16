@@ -77,7 +77,7 @@ export default function MyIssuePage() {
                                     </span>
                                 </td>
                                 <td>
-                                    <div className="flex gap-2 justify-center">
+                                    <div className="flex gap-2 justify-end">
                                         {e.priority !== "high" && <BoostPriorityButton title={e.title} id={e._id} />}
                                         {
                                             e?.status === "pending"

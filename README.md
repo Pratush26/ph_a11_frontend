@@ -8,6 +8,10 @@ This is Infrastructure problem resolving platform. It's make easier to track the
 - [Github - Backend](https://github.com/Pratush26/ph_11_backend)
 
 ### Features
+- Improves transparency
+- Reduces response time
+- Helps collect and analyze infrastructure data
+- Makes city service delivery more efficient
 - User can create account and submit issue
 - Admin can create staffs and assign them issues
 - User can boost their issues and purchase premium subscription with integrated payment method

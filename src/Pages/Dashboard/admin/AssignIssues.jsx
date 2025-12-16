@@ -11,8 +11,8 @@ export default function AssignIssues() {
     const [targetedIssue, setTargetedIssue] = useState(null)
     const axis = useAxios()
     const { data: issueData, isLoading: dataLoading, error: dataError } = useQuery({
-        queryKey: ['issues', 'pending'],
-        queryFn: () => axis('/issues?status=pending').then(res => res.data),
+        queryKey: ['issues', 'not-assigned'],
+        queryFn: () => axis('/privateIssues?&assigned=false&status=pending').then(res => res.data),
         staleTime: 5 * 60 * 1000,
     })
     

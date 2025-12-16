@@ -109,11 +109,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "report-issue",
-                element: <AuthenticateRoute><ReportIssue /></AuthenticateRoute>
+                element: <PrivateRoute permitTo="citizen"><ReportIssue /></PrivateRoute>
             },
             {
                 path: "my-issues",
-                element: <AuthenticateRoute><MyIssuePage /></AuthenticateRoute>
+                element: <PrivateRoute permitTo="citizen"><MyIssuePage /></PrivateRoute>
             },
             {
                 path: "assigned-issues",
