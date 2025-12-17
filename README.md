@@ -14,6 +14,7 @@ This is Infrastructure problem resolving platform. It's make easier to track the
 - Makes city service delivery more efficient
 - User can create account and submit issue
 - Admin can create staffs and assign them issues
+- Admin can block resitricted users
 - User can boost their issues and purchase premium subscription with integrated payment method
 - staffs can update their assigned issues
 - user can upvote others issues and update their profile and issues

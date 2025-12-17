@@ -5,6 +5,7 @@ import { Link } from "react-router"
 import { useAxios } from "../../Hooks/UseAxios"
 import Error from "../../Shared/Error"
 import Loader from "../../Shared/Loader"
+import { FaFileInvoice } from "react-icons/fa"
 
 export default function TransactionsPage() {
     const [currentPage, setCurrentPage] = useState(1)
@@ -40,7 +41,11 @@ export default function TransactionsPage() {
                                 <th className="hidden sm:table-cell">Date</th>
                                 <th className="hidden sm:table-cell">Amount</th>
                                 <th className="hidden sm:table-cell">Status</th>
-                                <th className="hidden sm:table-cell">Invoice</th>
+                                <th className="hidden sm:table-cell">
+                                    <div className="flex items-center justify-center gap-2">
+                                        <FaFileInvoice />Invoice
+                                    </div>
+                                </th>
                             </tr>
                         </thead>
                         <tbody className="text-gray-800">

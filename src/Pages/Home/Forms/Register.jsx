@@ -38,6 +38,7 @@ export default function RegisterPage() {
             reset();
             queryClient.invalidateQueries({ queryKey: ["issues"] })
             queryClient.invalidateQueries({ queryKey: ["analytics"] })
+            queryClient.invalidateQueries({ queryKey: ["transactions"] })
         } catch (err) {
             console.error(err);
             showToast({ type: "error", msg: "Something went wrong!" });

@@ -28,6 +28,7 @@ export default function LoginPage() {
                 reset()
                 queryClient.invalidateQueries({ queryKey: ["issues"] })
                 queryClient.invalidateQueries({ queryKey: ["analytics"] })
+                queryClient.invalidateQueries({ queryKey: ["transactions"] })
             }
             else showToast({ type: "error", msg: "Something went wrong!" });
         } catch (err) {
@@ -43,6 +44,7 @@ export default function LoginPage() {
 
             queryClient.invalidateQueries({ queryKey: ["issues"] })
             queryClient.invalidateQueries({ queryKey: ["analytics"] })
+            queryClient.invalidateQueries({ queryKey: ["transactions"] })
             await axios.post(`${import.meta.env.VITE_SERVER}/citizen`, { name: res.user.displayName, email: res.user.email, photo: res.user.photoURL });
             showToast({ type: "success", msg: "Logged in with Google" })
 

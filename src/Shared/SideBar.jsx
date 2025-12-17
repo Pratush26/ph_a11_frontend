@@ -46,7 +46,7 @@ export default function SideBar({ menuOpened }) {
                 &&
                 <NavLink className="trns sideLink flex gap-2 items-center" to='/assigned-issues'><GrStakeholder />Assigned Issues</NavLink>
             }
-            {(userInfo?.role === "staff" || userInfo?.role === "admin") && <NavLink className="trns sideLink flex gap-2 items-center" to='/transactions'><FaMoneyBillTransfer />Transactions</NavLink>}
+            {(userInfo?.role === "citizen" || userInfo?.role === "admin") && <NavLink className="trns sideLink flex gap-2 items-center" to='/transactions'><FaMoneyBillTransfer />Transactions</NavLink>}
             {
                 userInfo?.role === "citizen"
                 &&
