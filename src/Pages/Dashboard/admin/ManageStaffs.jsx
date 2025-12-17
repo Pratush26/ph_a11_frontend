@@ -40,8 +40,8 @@ export default function ManageStaffsPage() {
                     <tr>
                         <th className="hidden sm:table-cell">SL no.</th>
                         <th>Staff Info</th>
-                        <th>Phone</th>
-                        <th className="hidden sm:table-cell">Address</th>
+                        <th className="hidden sm:table-cell">Phone</th>
+                        <th className="hidden lg:table-cell">Address</th>
                         <th className="hidden sm:table-cell">NID</th>
                         <th>Action</th>
                     </tr>
@@ -60,9 +60,9 @@ export default function ManageStaffsPage() {
                                         </span>
                                     </div>
                                 </td>
-                                <td>{e.phone}</td>
-                                <td className="text-xs">{e.address}</td>
-                                <td className="text-xs">{e.nid}</td>
+                                <td className="hidden sm:table-cell">{e.phone}</td>
+                                <td className="text-xs hidden lg:table-cell">{e.address}</td>
+                                <td className="text-xs hidden sm:table-cell">{e.nid}</td>
                                 <td>
                                     <div className="flex gap-2 justify-center">
                                         <BlockButton email={e.email} current={e?.blocked} />

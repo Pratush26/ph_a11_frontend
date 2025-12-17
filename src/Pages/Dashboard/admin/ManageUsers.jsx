@@ -52,7 +52,7 @@ export default function ManageUsersPage() {
                                         </span>
                                     </div>
                                 </td>
-                                <td>{e.issueCount || 0}</td>
+                                <td className="hidden sm:table-cell">{e.issueCount || 0}</td>
                                 <td>
                                     <div className="flex gap-2 justify-center">
                                         <BlockButton email={e.email} current={e?.blocked} />

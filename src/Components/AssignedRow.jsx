@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const statusOrder = ["pending", "in-progress", "working", "resolved", "closed"];
-export default function AssignedRow({ e, key }) {
+export default function AssignedRow({ e, i }) {
     const [desiredStatus, setDesiredStatus] = useState(null)
     const axis = useAxios()
     const queryClient = useQueryClient()
@@ -46,17 +46,17 @@ export default function AssignedRow({ e, key }) {
     }
     return (
         <tr className="border border-gray-300 bg-white">
-            <td className="hidden sm:table-cell">{key + 1}</td>
+            <td className="hidden sm:table-cell">{i + 1}</td>
             <td>
                 <div className="flex items-center text-start gap-2">
-                    <img src={e.photo} alt="staff photo" className="h-20 w-auto rounded-lg" />
+                    <img src={e.photo} alt="staff photo" className="h-20 w-auto rounded-lg hidden md:block" />
                     <span>
                         <p>{e.title}</p>
                         <p className="text-xs">{e.location}</p>
                     </span>
                 </div>
             </td>
-            <td>{new Date(e.createdAt).toLocaleString()}</td>
+            <td className="hidden lg:table-cell">{new Date(e.createdAt).toLocaleString()}</td>
             <td>
                 <select onChange={val => setDesiredStatus(val.target.value)} defaultValue={e.status} name="issueStatus" id="issueStatus" >
                     {statusOrder.map((s) => (
@@ -71,7 +71,7 @@ export default function AssignedRow({ e, key }) {
                     ))}
                 </select>
             </td>
-            <td>
+            <td className="hidden md:table-cell">
                 <span className={`${e.priority === "low" ? "bg-gray-500" : "bg-blue-500"} rounded-full text-white py-0.5 px-3`}>
                     {e.priority}
                 </span>

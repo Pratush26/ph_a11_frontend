@@ -51,7 +51,7 @@ export default function MyIssuePage() {
                         <p>No Issue Found!</p>
                 }
             </div>
-            <form className="flex items-center justify-center gap-4 w-full my-8">
+            <form className="flex flex-wrap md:flex-nowrap items-center justify-center gap-4 w-full my-8">
                 <select defaultValue={filters.status} onChange={(e) => setFilters(f => ({ ...f, priority: e.target.value, page: 1 }))} >
                     <option value="">All Priority</option>
                     <option value="high">High</option>
@@ -77,9 +77,9 @@ export default function MyIssuePage() {
                     <tr>
                         <th className="hidden sm:table-cell">SL no.</th>
                         <th>Issue Info</th>
-                        <th className="hidden sm:table-cell">Submission Date</th>
-                        <th className="hidden sm:table-cell">Status</th>
-                        <th className="hidden sm:table-cell">Priority</th>
+                        <th className="hidden lg:table-cell">Submission Date</th>
+                        <th>Status</th>
+                        <th className="hidden md:table-cell">Priority</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -94,7 +94,7 @@ export default function MyIssuePage() {
                                 <tr key={i} className="border border-gray-300 bg-white">
                                     <td className="hidden sm:table-cell">{i + 1}</td>
                                     <td>
-                                        <div className="flex items-center text-start gap-2">
+                                        <div className="flex flex-col md:flex-row items-center text-start gap-2">
                                             <img src={e.photo} alt="staff photo" className="h-20 w-auto rounded-lg" />
                                             <span>
                                                 <Link to={`/issue-details/${e._id}`} className="hover:underline" >{e.title}</Link>
@@ -102,19 +102,19 @@ export default function MyIssuePage() {
                                             </span>
                                         </div>
                                     </td>
-                                    <td>{new Date(e.createdAt).toLocaleString()}</td>
+                                    <td className="hidden lg:table-cell">{new Date(e.createdAt).toLocaleString()}</td>
                                     <td>
                                         <span className={`${e.status === "pending" ? "bg-amber-500" : e.status === "working" ? "bg-violet-500" : e.status === "in-progress" ? "bg-blue-500" : e.status === "resolved" ? "bg-emerald-500" : e.status === "closed" ? "bg-gray-500" : "bg-rose-500"} rounded-full text-white py-0.5 px-3`}>
                                             {e.status}
                                         </span>
                                     </td>
-                                    <td>
+                                    <td className="hidden md:table-cell">
                                         <span className={`${e.priority === "low" ? "bg-gray-500" : "bg-blue-500"} rounded-full text-white py-0.5 px-3`}>
                                             {e.priority}
                                         </span>
                                     </td>
                                     <td>
-                                        <div className="flex gap-2 justify-end">
+                                        <div className="flex flex-col sm:flex-row gap-4 sm:gap-2 justify-end">
                                             {e.priority !== "high" && <BoostPriorityButton title={e.title} id={e._id} />}
                                             {
                                                 e?.status === "pending"

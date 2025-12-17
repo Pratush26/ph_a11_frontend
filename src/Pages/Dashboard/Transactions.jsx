@@ -39,7 +39,7 @@ export default function TransactionsPage() {
                                 <th className="hidden sm:table-cell">SL no.</th>
                                 <th>Transaction ID</th>
                                 <th className="hidden sm:table-cell">Date</th>
-                                <th className="hidden sm:table-cell">Amount</th>
+                                <th>Amount</th>
                                 <th className="hidden sm:table-cell">Status</th>
                                 <th className="hidden sm:table-cell">
                                     <div className="flex items-center justify-center gap-2">
@@ -59,20 +59,23 @@ export default function TransactionsPage() {
                                                 {e.issue && <Link to={`/issue-details/${e.issue}`} className="hover:underline">View Details</Link>}
                                             </div>
                                         </td>
-                                        <td className="text-xs">{new Date(e.createdAt).toLocaleString()}</td>
+                                        <td className="text-xs hidden sm:table-cell">{new Date(e.createdAt).toLocaleString()}</td>
                                         <td>{e.amount} ৳</td>
-                                        <td>
+                                        <td className="hidden sm:table-cell">
                                             <span className={`${e.status === "complete" ? "bg-blue-500" : "bg-gray-500"} rounded-full text-white py-0.5 px-3`}>
                                                 {e.status}
                                             </span>
                                         </td>
-                                        <td>
+                                        <td className="hidden sm:table-cell">
                                             <Link state={[{
                                                 transactionId: e.transactionId,
                                                 date: e.issue ?? "",
                                                 paidBy: e.paidBy,
                                                 total: e.amount,
-                                            }]} to='/invoice' className="btn btn-out rounded-lg trnsition shadow-md">Download</Link>
+                                            }]} to='/invoice' className="btn btn-out rounded-lg trnsition shadow-md"
+                                            >
+                                                Download
+                                            </Link>
                                         </td>
                                     </tr>
                                 ))

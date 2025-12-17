@@ -50,14 +50,14 @@ export default function AddStaffForm({ setIsModalOpened }) {
     });
     const formSubmit = (data) => createIssueMutation.mutate(data)
     return (
-        <form onSubmit={handleSubmit(formSubmit)} className="absolute bg-white z-90 right-1/2 top-0 translate-x-1/2 flex flex-col items-center gap-3 p-10 shadow-md/40 rounded-2xl w-3/4">
+        <form onSubmit={handleSubmit(formSubmit)} className="absolute bg-white z-90 right-1/2 top-0 translate-x-1/2 flex flex-col items-center gap-3 p-10 shadow-md/40 rounded-2xl w-11/12 sm:w-2/3">
             <div className="w-full flex items-center justify-between gap-2">
                 <h4 className="text-xl font-bold">Add Staff</h4>
                 <button onClick={() => setIsModalOpened(false)} type="button" className="cursor-pointer">
                     <RxCross2 />
                 </button>
             </div>
-            <fieldset className="grid grid-cols-2 gap-4">
+            <fieldset className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div className="w-full">
                     {errors.name ? <p className="text-sm text-rose-600">{errors.name.message}</p> : <label htmlFor="name">Name :</label>}
                     <input type="text" {...register("name", { required: "name is required" })} placeholder="Enter name" id="name" />

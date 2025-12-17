@@ -120,7 +120,7 @@ export default function HomePage() {
                     alt="banner image"
                     className='absolute top-0 w-full h-full object-top object-cover -z-10'
                 />
-                <div className='grid grid-cols-2 place-content-center-safe bg-linear-45 from-black from-20% via-black/80 to-transparent min-h-[80vh] h-full'>
+                <div className='grid grid-cols-1 place-content-center-safe bg-linear-45 from-black from-20% via-black/80 to-transparent min-h-[80vh] h-full'>
                     <motion.article
                         variants={containerVariants}
                         initial="hidden"
@@ -137,14 +137,13 @@ export default function HomePage() {
                             <Link to='/dashboard' className='btn btn-primary trns rounded-full'>Join Community</Link>
                         </motion.div>
                     </motion.article>
-                    <aside></aside>
                 </div>
             </section>
             <HomeCarousel carouselData={carouselData} />
             <section className="min-h-[80vh] relative overflow-hidden w-5/6 mx-auto">
                 <h3 className='text-center font-semibold text-3xl'>Latest Issues</h3>
                 <p className='text-center my-2 text-sm'>Stay informed about current problems being addressed in your city. These are the latest issues reported by citizens like you.</p>
-                <article className='grid grid-cols-3 gap-6 w-11/12 mx-auto my-10'>
+                <article className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-11/12 mx-auto my-10'>
                     {
                         issueLoading ?
                             <div className='min-h-[50vh] w-fit mx-auto col-span-3'>
@@ -176,7 +175,7 @@ export default function HomePage() {
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
-                    className="grid grid-cols-3 place-content-center-safe gap-6 text-center w-5/6 mx-auto">
+                    className="grid grid-cols-1 md:grid-cols-3 place-content-center-safe gap-6 text-center w-5/6 mx-auto">
                     {
                         goalsData.map((e, i) => (
                             <motion.span variants={itemVariants} key={i} className="rounded-xl shadow-md/30 p-6 flex flex-col items-center justify-center gap-2">

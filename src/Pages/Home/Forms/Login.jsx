@@ -56,12 +56,12 @@ export default function LoginPage() {
 
 
     return (
-        <div className="grid grid-cols-2 items-center-safe justify-items-center-safe gap-6 m-6 w-11/12 mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center-safe justify-items-center-safe gap-6 m-6 w-11/12 mx-auto">
             <aside className="flex flex-col gap-4 items-center">
                 <img src={Img} alt="image" className="w-full h-auto max-w-2xs" />
                 <h2 className="text-xl font-semibold">Welcome back to InfraCare</h2>
             </aside>
-            <form onSubmit={handleSubmit(formSubmit)} className="flex flex-col items-center gap-3 p-8 pt-12 shadow-md/40 rounded-2xl w-3/4">
+            <form onSubmit={handleSubmit(formSubmit)} className="flex flex-col items-center gap-3 p-8 pt-12 shadow-md/40 rounded-2xl w-11/12 md:w-3/4">
                 <div className="w-full">
                     {errors.email ? <p className="text-sm text-rose-600">{errors.email.message}</p> : <label htmlFor="email">Email :</label>}
                     <input type="email" {...register("email", { required: "email is required" })} placeholder="Enter your email" id="email" />

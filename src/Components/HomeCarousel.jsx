@@ -10,7 +10,7 @@ export default function HomeCarousel({ carouselData }) {
                 <div className="embla__container">
                     {
                         carouselData.map((e, i) => (
-                            <article key={i} className='embla__slide grid grid-cols-2 gap-6 items-center-safe justify-items-center-safe text-center mx-8'>
+                            <article key={i} className='embla__slide grid grid-cols-1 sm:grid-cols-2 gap-6 items-center-safe justify-items-center-safe text-center mx-8'>
                                 <div>
                                     <h6 className='text-2xl font-bold m-4'>{e.title}</h6>
                                     <p>{e.description}</p>

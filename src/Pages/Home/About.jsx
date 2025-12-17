@@ -98,7 +98,7 @@ export default function AboutUsPage() {
         <main className="w-5/6 mx-auto my-10">
             <h1 className="m-6 text-center text-3xl font-bold">About Us</h1>
             <p className="text-sm text-center">InfraCare began with a simple observation: public infrastructure issues that should take days to fix often take weeks or months. The problem wasn't a lack of resources, but a broken communication system between citizens and municipalities.</p>
-            <article className="grid grid-cols-2 place-content-center-safe gap-6 text-sm my-10 text-center">
+            <article className="grid grid-cols-1 lg:grid-cols-2 place-content-center-safe gap-6 text-sm my-10 text-center">
                 {
                     introData.map((e, i) => (
                         <span key={i} className="rounded-xl bg-blue-600 text-white shadow-md/30 p-6 flex flex-col items-center justify-center gap-1">
@@ -110,7 +110,7 @@ export default function AboutUsPage() {
             </article>
             <h2 className="mt-26 text-center text-3xl font-bold">Meet with our team</h2>
             <p className="text-sm text-center mt-4 mb-10">A diverse group of technologists, urban planners, and civic activists committed to building better cities.</p>
-            <article className="grid grid-cols-4 place-content-center-safe gap-6 text-sm text-center">
+            <article className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 place-content-center-safe gap-6 text-sm text-center">
                 {
                     team.map((e, i) => (
                         <span key={i} className="rounded-xl shadow-md/30 p-6 flex flex-col items-center justify-center gap-1">
@@ -123,7 +123,7 @@ export default function AboutUsPage() {
                 }
             </article>
             <h4 className="mt-26 text-center text-3xl font-bold">Achievements</h4>
-            <article className="grid grid-cols-3 place-content-center-safe gap-6 text-sm my-14 text-center">
+            <article className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-content-center-safe gap-6 text-sm my-14 text-center">
                 {
                     achievements.map((e, i) => (
                         <span key={i} className="rounded-xl shadow-md/30 p-6 flex flex-col items-center justify-center gap-1">
@@ -142,11 +142,11 @@ export default function AboutUsPage() {
                         <div key={i} className="space-y-3 my-10">
                             <h5 className="text-lg font-bold">{e.category}</h5>
                             <div className="flex items-center justify-center flex-wrap gap-2 text-sm font-semibold">
-                            {
-                                e.partners.map((p, indx) => (
-                                    <span key={indx} className="px-6 py-3 rounded-lg bg-blue-600 text-white">{p}</span>
-                                ))
-                            }
+                                {
+                                    e.partners.map((p, indx) => (
+                                        <span key={indx} className="px-6 py-3 rounded-lg bg-blue-600 text-white">{p}</span>
+                                    ))
+                                }
                             </div>
                         </div>
                     ))

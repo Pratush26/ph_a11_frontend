@@ -44,7 +44,7 @@ export default function AssignIssues() {
             <div className="flex w-full justify-between items-center gap-4">
                 <p>Total Issues ({issueData?.length})</p>
             </div>
-            <form className="flex items-center justify-center gap-4 w-full my-8">
+            <form className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full my-8">
                 <select defaultValue={filters.status} onChange={(e) => setFilters(f => ({ ...f, priority: e.target.value, page: 1 }))} >
                     <option value="">All Priority</option>
                     <option value="high">High</option>
@@ -70,60 +70,60 @@ export default function AssignIssues() {
                     <option value="false">Not-assigned</option>
                 </select>
             </form>
-            <table className="table-auto text-center text-sm font-medium border-collapse w-full sm:w-11/12 mx-auto overflow-hidden my-6">
-                <thead>
-                    <tr>
-                        <th className="hidden sm:table-cell">SL no.</th>
-                        <th>Issue Info</th>
-                        <th className="hidden sm:table-cell">Category</th>
-                        <th className="hidden sm:table-cell">Submission Date</th>
-                        <th className="hidden sm:table-cell">Status</th>
-                        <th className="hidden sm:table-cell">Priority</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody className="text-gray-800">
-                    {
-                        (dataLoading || isFetching) ?
-                            <div className="flex w-full min-h-[90vh] items-center justify-center">
-                                <Loader />
-                            </div>
-                            :
-                            issueData?.map((e, i) => (
-                                <tr key={i} className="border border-gray-300 bg-white">
-                                    <td className="hidden sm:table-cell">{i + 1}</td>
-                                    <td>
-                                        <div className="flex justify-center items-center text-start gap-2">
-                                            <img src={e.photo} alt="staff photo" className="h-20 w-auto rounded-lg" />
-                                            <span>
-                                                <p>{e.title}</p>
-                                                <p className="text-xs">{e.location}</p>
+            {
+                (dataLoading || isFetching) ?
+                    <div className="flex w-full min-h-[90vh] items-center justify-center">
+                        <Loader />
+                    </div>
+                    :
+                    <table className="table-auto text-center text-sm font-medium border-collapse w-full sm:w-11/12 mx-auto overflow-hidden my-6">
+                        <thead>
+                            <tr>
+                                <th className="hidden sm:table-cell">SL no.</th>
+                                <th>Issue Info</th>
+                                <th className="hidden md:table-cell">Category</th>
+                                <th className="hidden lg:table-cell">Submission Date</th>
+                                <th className="hidden sm:table-cell">Status</th>
+                                <th>Priority</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody className="text-gray-800">
+                            {
+                                issueData?.map((e, i) => (
+                                    <tr key={i} className="border border-gray-300 bg-white w-full">
+                                        <td className="hidden sm:table-cell">{i + 1}</td>
+                                        <td>
+                                            <div className="flex justify-center items-center text-start gap-2">
+                                                <img src={e.photo} alt="staff photo" className="h-10 md:h-20 w-auto rounded-lg" />
+                                                <span>
+                                                    <p>{e.title}</p>
+                                                    <p className="text-xs hidden lg:block">{e.location}</p>
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td className="hidden md:table-cell">{e.category}</td>
+                                        <td className="hidden lg:table-cell">{new Date(e.createdAt).toDateString()}</td>
+                                        <td className="hidden sm:table-cell">
+                                            <span className={`${e.status === "pending" ? "bg-amber-500" : e.status === "working" ? "bg-violet-500" : e.status === "in-progress" ? "bg-blue-500" : e.status === "resolved" ? "bg-emerald-500" : e.status === "closed" ? "bg-gray-500" : "bg-rose-500"} rounded-full text-white py-0.5 px-3`}>
+                                                {e.status}
                                             </span>
-                                        </div>
-                                    </td>
-                                    <td>{e.category}</td>
-                                    <td>{new Date(e.createdAt).toLocaleString()}</td>
-                                    <td>
-                                        <span className={`${e.status === "pending" ? "bg-amber-500" : e.status === "working" ? "bg-violet-500" : e.status === "in-progress" ? "bg-blue-500" : e.status === "resolved" ? "bg-emerald-500" : e.status === "closed" ? "bg-gray-500" : "bg-rose-500"} rounded-full text-white py-0.5 px-3`}>
-                                            {e.status}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span className={`${e.priority === "low" ? "bg-gray-500" : "bg-blue-500"} rounded-full text-white py-0.5 px-3`}>
-                                            {e.priority}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div className="flex gap-2 justify-center">
-                                            <button onClick={() => handleAssign(e._id)} disabled={!!e.assignedTo} className={`btn-primary btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Assign</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            )
-                            )
-                    }
-                </tbody>
-            </table>
+                                        </td>
+                                        <td>
+                                            <div className={`${e.priority === "low" ? "bg-gray-500" : "bg-blue-500"} rounded-full text-white py-0.5 px-3`}>
+                                                {e.priority}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className="flex gap-2 items-center justify-center">
+                                                <button onClick={() => handleAssign(e._id)} disabled={!!e.assignedTo} className={`btn-primary btn trns hover:scale-103 hover:shadow-md/30 rounded-full`}>Assign</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                        </tbody>
+                    </table>
+            }
         </main>
     )
 }

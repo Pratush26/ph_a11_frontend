@@ -38,7 +38,7 @@ export default function StaffListModal({ setIsModalOpened, issueId }) {
         }
     })
     return (
-        <section className="fixed bg-white z-90 right-1/2 top-1/2 translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-3 p-10 shadow-md/40 rounded-2xl w-1/4">
+        <section className="fixed bg-white z-90 right-1/2 top-1/2 translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-3 p-10 shadow-md/40 rounded-2xl w-5/6 sm:w-1/2 md:w-1/3 lg:w-1/4">
             <div className="w-full flex items-center justify-between gap-2">
                 <h4 className="font-semibold">Choose jobless staff for assinging issue</h4>
                 <button onClick={() => setIsModalOpened(false)} type="button" className="cursor-pointer">

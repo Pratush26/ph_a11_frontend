@@ -30,15 +30,15 @@ export default function AssignedIssues() {
                     <tr>
                         <th className="hidden sm:table-cell">SL no.</th>
                         <th>Issue Info</th>
-                        <th className="hidden sm:table-cell">Submission Date</th>
-                        <th className="hidden sm:table-cell">Status</th>
-                        <th className="hidden sm:table-cell">Priority</th>
+                        <th className="hidden lg:table-cell">Submission Date</th>
+                        <th>Status</th>
+                        <th className="hidden md:table-cell">Priority</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody className="text-gray-800">
                     {
-                        myIssue?.map((e, i) => <AssignedRow key={i} e={e} />)
+                        myIssue?.map((e, i) => <AssignedRow key={i} i={i} e={e} />)
                     }
                 </tbody>
             </table>

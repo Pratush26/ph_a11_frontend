@@ -9,7 +9,7 @@ export default function Footer() {
     const { user } = useContext(UserContext)
     return (
         <footer className="text-sm bg-gray-300 w-full pt-8">
-            <section className='grid grid-cols-4 items-start w-11/12 mx-auto'>
+            <section className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start w-11/12 mx-auto'>
                 <Link to='/' className="flex items-end">
                     <img src={Logo} alt="logo" className="h-9 w-auto" />
                     <span className="font-bold text-2xl">InfraCare</span>
