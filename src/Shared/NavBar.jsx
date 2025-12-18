@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router";
 import Logo from '../assets/logo.svg'
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../Context/AuthContext";
 import Loader from "./Loader";
 import { IoIosArrowDown } from "react-icons/io";
@@ -8,6 +8,9 @@ import { IoIosArrowDown } from "react-icons/io";
 export default function NavBar() {
     const { user, loading, signOutUser } = useContext(UserContext)
     const [isHover, setIsHover] = useState(false)
+    useEffect(() => {
+        setIsHover(false)
+    }, [user])
     return (
         <header className="w-full bg-white shadow-md py-4 sticky z-100 top-0">
             <nav className="w-11/12 mx-auto flex items-center justify-between text-sm font-medium">

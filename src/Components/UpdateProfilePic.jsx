@@ -45,7 +45,7 @@ export default function UpdateProfilePic() {
             {
                 isModalOpened
                 &&
-                <form onSubmit={handleSubmit(handleUpdate)} className="absolute bg-white z-90 right-1/2 top-0 translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-3 p-10 shadow-md/40 rounded-2xl w-xs">
+                <form onSubmit={handleSubmit(handleUpdate)} className="absolute bg-white z-90 right-1/2 top-0 translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-3 p-10 shadow-md/40 rounded-2xl min-w-xs">
                     <div className="w-full flex items-center justify-between gap-2">
                         <h4 className="text-lg font-bold">Update Profile Picture</h4>
                         <button onClick={() => setIsModalOpened(false)} type="button" className="cursor-pointer">

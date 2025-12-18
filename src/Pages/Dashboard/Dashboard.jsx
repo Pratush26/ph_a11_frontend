@@ -45,7 +45,7 @@ export default function Dashboard() {
             <h4 className="text-2xl font-semibold my-2">Issues Analytics</h4>
             <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 2xl:grid-cols-8 items-center-safe justify-items-center-safe gap-4 gap-6 w-full">
                 {
-                    analytics.analyticsData.map((e, i) => (
+                    analytics?.analyticsData.map((e, i) => (
                         <div key={i} className="p-4 bg-white rounded-xl shadow-md/30 w-full">
                             <p className="text-lg font-semibold capitalize">{e._id}</p>
                             <p>{e.count}</p>
@@ -102,7 +102,7 @@ export default function Dashboard() {
                             <p>Amount</p>
                         </div>
                         {
-                            transactions.map(e => (
+                            transactions?.map(e => (
                                 <div key={e._id} className="grid grid-cols-2 sm:grid-cols-3 items-center-safe text-sm justify-items-center-safe font-medium gap-2 px-6 py-2 rounded-lg trns hover:bg-gray-100">
                                     <p>{e.paidBy}</p>
                                     <p className="text-xs hidden sm:block">{e.transactionId}</p>

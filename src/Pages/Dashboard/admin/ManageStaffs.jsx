@@ -6,6 +6,7 @@ import Loader from "../../../Shared/Loader"
 import Error from "../../../Shared/Error"
 import '../../../Utils/table.css'
 import BlockButton from "../../../Components/BlockButton"
+import UpdateUserInfo from "../../../Components/AdminUpdate"
 
 export default function ManageStaffsPage() {
     const [isModalOpened, setIsModalOpened] = useState(false)
@@ -65,6 +66,7 @@ export default function ManageStaffsPage() {
                                 <td className="text-xs hidden sm:table-cell">{e.nid}</td>
                                 <td>
                                     <div className="flex gap-2 justify-center">
+                                        <UpdateUserInfo userInfo={e} />
                                         <BlockButton email={e.email} current={e?.blocked} />
                                     </div>
                                 </td>
