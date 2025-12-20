@@ -42,10 +42,7 @@ export default function AddStaffForm({ setIsModalOpened }) {
         },
 
         onError: (err) => {
-            showToast({
-                type: "error",
-                msg: err.response?.data?.message || "Something went wrong!"
-            })
+            showToast({ type: "error", msg: err.response?.data?.message || "Something went wrong!" })
         }
     });
     const formSubmit = (data) => createIssueMutation.mutate(data)

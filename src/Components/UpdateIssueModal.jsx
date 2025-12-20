@@ -43,10 +43,7 @@ export default function UpdateIssueModal({ setIsModalOpened, issue }) {
         },
 
         onError: (err) => {
-            showToast({
-                type: "error",
-                msg: err.response?.data?.message || "Something went wrong!"
-            })
+            showToast({ type: "error", msg: err.response?.data?.message || "Something went wrong!" })
         }
     });
     if (isLoading) {

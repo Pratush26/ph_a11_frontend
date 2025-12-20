@@ -31,10 +31,7 @@ export default function StaffListModal({ setIsModalOpened, issueId }) {
         },
 
         onError: (err) => {
-            showToast({
-                type: "error",
-                msg: err.response?.data?.message || "Something went wrong!"
-            })
+            showToast({ type: "error", msg: err.response?.data?.message || "Something went wrong!" })
         }
     })
     return (

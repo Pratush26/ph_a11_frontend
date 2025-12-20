@@ -24,10 +24,7 @@ export default function AssignedRow({ e, i }) {
         },
 
         onError: (err) => {
-            showToast({
-                type: "error",
-                msg: err.response?.data?.message || "Something went wrong!"
-            })
+            showToast({ type: "error", msg: err.response?.data?.message || "Something went wrong!" })
         }
     });
     const handleUpdate = () => {

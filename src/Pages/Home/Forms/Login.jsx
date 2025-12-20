@@ -46,7 +46,7 @@ export default function LoginPage() {
             queryClient.invalidateQueries({ queryKey: ["analytics"] })
             queryClient.invalidateQueries({ queryKey: ["transactions"] })
             await axios.post(`${import.meta.env.VITE_SERVER}/citizen`, { name: res.user.displayName, email: res.user.email, photo: res.user.photoURL });
-            showToast({ type: "success", msg: "Logged in with Google" })
+            showToast({ type: "success", msg: `Welcome Back, ${res.user?.displayName}` })
 
         } catch (error) {
             console.error(error)

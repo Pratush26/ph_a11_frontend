@@ -17,7 +17,7 @@ export default function AfterPayment() {
             axios.patch(`${import.meta.env.VITE_SERVER}/update-paymentStatus?type=${type}`, { session_id: sessionId })
                 .then(res => setPaymentData(res.data))
                 .catch(err => {
-                    showToast({ type: "error", message: err.message || "Some error occur!" })
+                    showToast({ type: "error", msg: err.message || "Some error occur!" })
                     console.error(err)
                 });
         }
@@ -25,7 +25,7 @@ export default function AfterPayment() {
             axios.patch(`${import.meta.env.VITE_SERVER}/update-paymentStatus?type=${type}`, { session_id: sessionId })
                 .then(res => setPaymentData(res.data))
                 .catch(err => {
-                    showToast({ type: "error", message: err.message || "Some error occur!" })
+                    showToast({ type: "error", msg: err.message || "Some error occur!" })
                     console.error(err)
                 });
         }

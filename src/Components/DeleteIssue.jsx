@@ -17,9 +17,9 @@ export default function DeleteIssueButton({title, id}) {
         }).then((result) => {
             if (result.isConfirmed) {
                 axis.put(`/issue`, { id }).then(res => {
-                    showToast({ type: "success", message: res?.data.message || "Successfully Deleted issue" })
+                    showToast({ type: "success", msg: res?.data.message || "Successfully Deleted issue" })
                 }).catch(err => {
-                    showToast({ type: "error", message: err?.message || err.data.response.data?.message || "Failed to Delete this issue" })
+                    showToast({ type: "error", msg: err?.message || err.data.response.data?.message || "Failed to Delete this issue" })
                     console.error(err)
                 })
             }

@@ -17,9 +17,10 @@ export default function BoostPriorityButton({title, id}) {
         }).then((result) => {
             if (result.isConfirmed) {
                 axis.post(`/checkout-session`, { id, price: 100 }).then(res => {
-                    window.location.href = res.data.url
+                    if(!res.data?.success) showToast({ type: "error", msg: res.data?.message || res.data.response?.data?.message || "Payment failed" })
+                    else window.location.href = res.data.url
                 }).catch(err => {
-                    showToast({ type: "error", message: err?.message || err || "Payment failed" })
+                    showToast({ type: "error", msg: err?.data.message || err.data.response?.data?.message || "Payment failed" })
                     console.error(err)
                 })
             }
