@@ -6,6 +6,8 @@ import { Link } from 'react-router';
 import HomeCarousel from '../../Components/HomeCarousel';
 import { motion } from "motion/react"
 import Card from '../../Components/Card';
+import { useState } from 'react';
+import TestimonialCarousel from '../../Components/testimonialCarousel';
 
 const howItWorksData = [
     {
@@ -82,7 +84,141 @@ const goalsData = [
         description: "A future where every public infrastructure issue is addressed within 48 hours, where citizens and municipalities work together seamlessly, and where urban spaces continuously improve through collective action."
     }
 ]
+const faqData = [
+    {
+        question: "How does InfraCare work?",
+        answer: "1. You report an issue with photos & location → 2. Admin verifies & assigns to department → 3. Staff inspects & fixes → 4. You track progress in real-time → 5. Issue resolved & verified"
+    },
+    {
+        question: "Is it really free to use?",
+        answer: "Yes! Reporting and tracking public issues is completely free. Optional premium membership offers priority support and detailed reports, but basic services remain free for all citizens."
+    },
+    {
+        question: "How long until my issue gets fixed?",
+        answer: "Average resolution time is 48-72 hours for urgent issues. You'll get real-time updates and can track exactly where your report is in the process."
+    },
+    {
+        question: "Do I need technical skills to use it?",
+        answer: "Not at all! Our platform is designed for everyone. Simple forms, easy photo upload, and intuitive tracking. We also offer phone support at 1800-INFRA-CARE for assistance."
+    },
+    {
+        question: "What areas does InfraCare cover?",
+        answer: "We currently serve 12 major cities across Bangladesh including Dhaka, Chittagong, Rajshahi, and Khulna. Check our coverage map to see if your area is included."
+    },
+    {
+        question: "How can I become a premium user?",
+        answer: "Visit our Premium page to subscribe. Benefits include: Priority issue handling, detailed resolution reports, SMS alerts, dedicated support, and advanced analytics. Starts at ৳99/month."
+    }
+]
+const commonAskData = [
+    {
+        q: "Is InfraCare free?",
+        a: "Yes, basic reporting is completely free."
+    },
+    {
+        q: "How fast are issues resolved?",
+        a: "Average 48-72 hours for urgent issues."
+    },
+    {
+        q: "Which cities are covered?",
+        a: "12 cities including Dhaka, Chittagong, Rajshahi."
+    },
+    {
+        q: "Need help reporting?",
+        a: "Call 1800-INFRA-CARE for assistance."
+    }
+]
+
+const testimonials = [
+    {
+      name: "Dr. Ayesha Rahman",
+      rating: 5,
+      content: "Reported a major water pipeline leak near our hospital. InfraCare assigned it within 2 hours, and WASA fixed it by evening! The real-time updates kept us informed throughout. This platform is a game-changer for civic services.",
+      issue: "Water Pipeline Leak"
+    },
+    {
+      name: "Engr. Kamal Hossain",
+      rating: 5,
+      content: "As someone who's worked in municipal services for 15 years, I've never seen such efficiency. InfraCare streamlines our workflow - we now resolve 40% more issues monthly with better tracking and documentation.",
+      issue: "Department Staff"
+    },
+    {
+      name: "Fatima Begum",
+      rating: 4,
+      content: "Garbage was overflowing for days affecting my business. Reported on InfraCare, got a tracking ID, and within 24 hours the sanitation team cleared everything. The photo verification feature gives me confidence it's really fixed.",
+      issue: "Garbage Overflow"
+    },
+    {
+      name: "Rahim Uddin",
+      rating: 5,
+      content: "Worth every taka of the premium subscription! My urgent streetlight repair was prioritized and completed in under 12 hours. The dedicated support and detailed progress reports are exceptional.",
+      issue: "Street Light Repair"
+    },
+    {
+      name: "Nusrat Jahan",
+      rating: 5,
+      content: "The broken footpath near our college was a hazard for months. I reported it on InfraCare, shared the tracking link with classmates, and we all watched it get fixed in 3 days! Transparency at its best.",
+      issue: "Footpath Repair"
+    },
+    {
+      name: "Shahin Alam",
+      rating: 4,
+      content: "We coordinate with InfraCare for traffic signal repairs. Their priority system ensures critical junctions get attention first. The municipal dashboard integration saves us countless follow-up calls.",
+      issue: "Traffic Signal Repair"
+    },
+    {
+      name: "Maria Sultana",
+      rating: 5,
+      content: "At 68, I'm not tech-savvy, but InfraCare is so simple! My grandson helped me report a dangerous pothole. We got SMS updates in Bangla, and it was fixed in 2 days. Feeling empowered to improve my neighborhood!",
+      issue: "Pothole Repair"
+    },
+    {
+      name: "Tanvir Ahmed",
+      rating: 5,
+      content: "Illegal construction waste was blocking my delivery entrance. Reported at 9 AM, assigned by 10 AM, cleared by 3 PM. The efficiency rivals private sector services. InfraCare should be implemented nationwide!",
+      issue: "Illegal Dumping",
+    },
+    {
+      name: "Abdul Karim",
+      rating: 5,
+      content: "Potholes damage our rickshaws daily. Reported 3 potholes on my route - all fixed in a week! Now I feel my voice matters.",
+      issue: "Pothole Repairs"
+    },
+    {
+      name: "Priya Sharma",
+      rating: 5,
+      content: "Broken streetlight near school gate fixed in 48 hours. My children can now walk safely in the evening. Thank you InfraCare!",
+      issue: "Street Light Repair"
+    },
+    {
+      name: "Municipal Staff",
+      rating: 5,
+      content: "Digital work orders cut our response time by 60%. We serve citizens better with organized, prioritized tasks.",
+      issue: "Department Efficiency"
+    },
+    {
+      name: "Rajib Hasan",
+      rating: 5,
+      content: "Water leakage near my office was marked urgent and fixed same day. Premium support is worth every penny!",
+      issue: "Priority Service"
+    },
+    {
+      name: "Taslima Begum",
+      rating: 5,
+      content: "Blocked drain causing water logging for years. Reported once, fixed permanently. Our alley is finally dry!",
+      issue: "Drainage Repair"
+    },
+    {
+      name: "City Official",
+      rating: 5,
+      content: "Data analytics help us allocate resources better. Citizen satisfaction up by 75% since implementing InfraCare.",
+      issue: "Data-Driven Management"
+    }
+  ]
+
 export default function HomePage() {
+    const [activeId, setActiveId] = useState(null);
+
     const { data: latestIssue, isLoading: issueLoading } = useQuery({
         queryKey: ['issues', 'latest'],
         queryFn: () => axios(`${import.meta.env.VITE_SERVER}/latest-issues`).then(res => res.data),
@@ -143,7 +279,7 @@ export default function HomePage() {
             <section className="min-h-[80vh] relative overflow-hidden w-5/6 mx-auto">
                 <h3 className='text-center font-semibold text-3xl'>Latest Issues</h3>
                 <p className='text-center my-2 text-sm'>Stay informed about current problems being addressed in your city. These are the latest issues reported by citizens like you.</p>
-                <article className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-11/12 mx-auto my-10'>
+                <article className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full my-10'>
                     {
                         issueLoading ?
                             <div className='min-h-[50vh] w-fit mx-auto col-span-3'>
@@ -157,7 +293,7 @@ export default function HomePage() {
             <section className="min-h-[80vh] relative overflow-hidden w-5/6 mx-auto my-12">
                 <h3 className='font-bold text-2xl text-center'>How Does It Work</h3>
                 <p className='text-center my-2 text-sm'>From reporting to resolution, our transparent 8-step process ensures every public issue gets timely attention. Citizens report, admins verify, staff resolve, and everyone tracks progress in real-time.</p>
-                <dl className='space-y-6 my-6 w-11/12 mx-auto'>
+                <dl className='space-y-6 my-6 w-full'>
                     {
                         howItWorksData?.map((e, i) => (
                             <div key={i}>
@@ -168,17 +304,88 @@ export default function HomePage() {
                     }
                 </dl>
             </section>
-            <section className='w-11/12 mx-auto text-center my-14 text-sm'>
+            <section className="w-5/6 mx-auto my-14 text-sm">
+                <h4 className="text-center text-3xl font-bold mb-10">
+                    Frequently Asked Questions
+                </h4>
+
+                <motion.article
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    className="space-y-4 w-full"
+                >
+                    {faqData?.map((faq, i) => (
+                        <div
+                            key={i}
+                            className="border border-gray-200 rounded-lg overflow-hidden"
+                        >
+                            <button
+                                onClick={() => setActiveId(activeId === i ? null : i)}
+                                className="w-full flex justify-between items-center px-5 py-4 text-left font-medium bg-white hover:bg-gray-100 trns"
+                            >
+                                <span>{faq.question}</span>
+                                <span className="text-xl font-bold">
+                                    {activeId === i ? '-' : '+'}
+                                </span>
+                            </button>
+
+                            {activeId === i && (
+                                <div className="px-5 py-4 text-gray-600 bg-white">
+                                    {faq.answer}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </motion.article>
+            </section>
+            <TestimonialCarousel testimonials={testimonials} />
+            <section className="w-5/6 mx-auto my-14 text-sm">
+                <h4 className="text-center text-3xl font-bold mb-10">
+                    Common Questions
+                </h4>
+
+                <motion.article
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    className="space-y-4 w-full"
+                >
+                    {commonAskData?.map((faq, i) => (
+                        <div
+                            key={i}
+                            className="border border-gray-200 rounded-lg overflow-hidden"
+                        >
+                            <button
+                                onClick={() => setActiveId(activeId === i ? null : i)}
+                                className="w-full flex justify-between items-center px-5 py-4 text-left font-medium bg-white hover:bg-gray-100 trns"
+                            >
+                                <span>{faq.q}</span>
+                                <span className="text-xl font-bold">
+                                    {activeId === i ? '-' : '+'}
+                                </span>
+                            </button>
+
+                            {activeId === i && (
+                                <div className="px-5 py-4 text-gray-600 bg-white">
+                                    {faq.a}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </motion.article>
+            </section>
+            <section className='w-5/6 mx-auto text-center my-14 text-sm'>
                 <h4 className="text-center text-3xl font-bold">Our Goal</h4>
                 <p className="text-sm text-center mt-6 mb-12">InfraCare is a civic technology initiative dedicated to improving public infrastructure management through digital innovation. We connect citizens with municipal services for faster, more transparent issue resolution</p>
                 <motion.article
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
-                    className="grid grid-cols-1 md:grid-cols-3 place-content-center-safe gap-6 text-center w-5/6 mx-auto">
+                    className="grid grid-cols-1 md:grid-cols-3 place-content-center-safe gap-6 text-center">
                     {
                         goalsData.map((e, i) => (
-                            <motion.span variants={itemVariants} key={i} className="rounded-xl shadow-md/30 p-6 flex flex-col items-center justify-center gap-2">
+                            <motion.span variants={itemVariants} key={i} className="bg-white rounded-xl shadow-md/20 p-10 flex flex-col items-center justify-center gap-2">
                                 <h3 className="text-lg font-semibold">{e.title}</h3>
                                 <p>{e.description}</p>
                             </motion.span>
