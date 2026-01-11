@@ -4,15 +4,17 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../Context/AuthContext";
 import Loader from "./Loader";
 import { IoIosArrowDown } from "react-icons/io";
+import ThemeBtn from "../Components/Button/themeBtn";
 
 export default function NavBar() {
     const { user, loading, signOutUser } = useContext(UserContext)
     const [isHover, setIsHover] = useState(false)
     useEffect(() => {
-        setIsHover(false)
+        const func = () => setIsHover(false)
+        func()
     }, [user])
     return (
-        <header className="w-full bg-white shadow-md py-4 sticky z-100 top-0">
+        <header className="w-full bg-(--bg-secondary) shadow-md py-4 sticky z-100 top-0">
             <nav className="w-11/12 mx-auto flex items-center justify-between text-sm font-medium">
                 <Link to='/' className="flex items-end">
                     <img src={Logo} alt="logo" className="h-9 w-auto" />
@@ -37,7 +39,7 @@ export default function NavBar() {
                                 {
                                     isHover
                                     &&
-                                    <div className="space-x-2 absolute bottom-0 translate-y-full -translate-x-1/2 p-2 flex flex-col gap-1 bg-white">
+                                    <div className="space-x-2 absolute bottom-0 translate-y-full -translate-x-1/2 p-2 flex flex-col gap-1 bg-(--bg-secondary)">
                                         <NavLink className="trns hover:bg-gray-200 px-4 py-2 trns rounded-sm" to='/dashboard'>Dashboard</NavLink>
                                         <div className="flex flex-col md:hidden gap-2">
                                             <NavLink className="trns hover:bg-gray-200 px-4 py-2 rounded-sm" to='/'>Home</NavLink>
@@ -45,12 +47,19 @@ export default function NavBar() {
                                             <NavLink className="trns hover:bg-gray-200 px-4 py-2 rounded-sm" to='/about'>About</NavLink>
                                             <NavLink className="trns hover:bg-gray-200 px-4 py-2 rounded-sm" to='/contact'>Contact Us</NavLink>
                                         </div>
-                                        <button onClick={signOutUser} className="btn btn-primary trns rounded-sm shadow-md/30">Log out</button>
+                                        <ThemeBtn size={"full"} />
+                                        <button
+                                            onClick={signOutUser}
+                                            className="btn btn-primary trns rounded-sm shadow-md/30"
+                                        >
+                                            Log out
+                                        </button>
                                     </div>
                                 }
                             </section>
                             :
                             <div className="space-x-2">
+                                <ThemeBtn size={"fit"} />
                                 <NavLink className="trns hover:text-gray-600" to='/register'>Register</NavLink>
                                 <NavLink className="trns hover:text-gray-600" to='/login'>Login</NavLink>
                             </div>

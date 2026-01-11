@@ -7,10 +7,9 @@ import { IoCheckmarkDoneCircle, IoCheckmarkDoneCircleOutline } from "react-icons
 import { useAxios } from "../../Hooks/UseAxios"
 import { useContext, useState } from "react";
 import { UserContext } from "../../Context/AuthContext";
-import UpdateIssueModal from "../../Components/UpdateIssueModal";
-import BoostPriorityButton from "../../Components/BoostPriorityButton";
-import DeleteIssueButton from "../../Components/DeleteIssue";
-import UpdateIssueImage from "../../Components/IssueImgModal";
+import UpdateIssueModal from "../../Components/Modals/UpdateIssueModal";
+import UpdateIssueImage from "../../Components/Modals/IssueImgModal";
+import BoostPriorityButton from "../../Components/Button/BoostPriorityButton";
 
 export default function IssueDetails() {
     const { user } = useContext(UserContext)

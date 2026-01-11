@@ -8,12 +8,13 @@ import { MdOutlineAssignmentTurnedIn } from "react-icons/md";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { RiPoliceBadgeLine } from "react-icons/ri";
 import Loader from "./Loader";
-import SubscribeButton from "../Components/SubscribeButton";
+import SubscribeButton from "../Components/Button/SubscribeButton";
+import ThemeBtn from "../Components/Button/themeBtn";
 
 export default function SideBar({ menuOpened }) {
     const { userInfo, loading, signOutUser } = useContext(UserContext)
     return (
-        <aside className={`${menuOpened ? "translate-x-0" : "-translate-x-full"} z-80 flex flex-col gap-3 trns absolute top-0 left-0 bg-white text-sm font-medium p-4 h-full rounded-br-lg shadow-lg/20`}>
+        <aside className={`${menuOpened ? "translate-x-0" : "-translate-x-full"} z-80 flex flex-col gap-3 trns absolute top-0 left-0 bg-(--bg-secondary) text-sm font-medium p-4 h-full rounded-br-lg shadow-lg/20`}>
             {
                 loading ?
                     <Loader />
@@ -56,7 +57,8 @@ export default function SideBar({ menuOpened }) {
                 </>
             }
             <NavLink className="trns sideLink flex gap-2 items-center" to='/profile'><FaRegUserCircle />Profile</NavLink>
-            <button onClick={() => signOutUser()} className="flex items-center gap-2 w-full py-1.5 px-3 rounded-sm trns hover:bg-gray-200 cursor-pointer"><TbLogout2 /> Log out</button>
+            <ThemeBtn size={"full"} />
+            <button onClick={() => signOutUser()} className="flex items-center gap-2 w-full py-1.5 px-3 rounded-md trns btn btn-out text-(--primary-700)"><TbLogout2 /> Log out</button>
         </aside>
     )
 }

@@ -1,13 +1,11 @@
 import { useForm } from "react-hook-form"
-import '../Utils/form.css'
-import { showToast } from "../Utils/ShowToast"
-import { AuthContext } from "../Context/AuthContext"
-import { FaEye, FaEyeSlash } from "react-icons/fa"
+import '../../Utils/form.css'
 import { RxCross2 } from "react-icons/rx"
-import { useAxios } from "../Hooks/UseAxios"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
-import Loader from "../Shared/Loader"
+import { useAxios } from "../../Hooks/UseAxios"
+import { showToast } from "../../Utils/ShowToast"
+import Loader from "../../Shared/Loader"
 
 export default function UpdateIssueModal({ setIsModalOpened, issue }) {
     const { register, handleSubmit, formState: { errors } } = useForm({

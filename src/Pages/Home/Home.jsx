@@ -228,7 +228,7 @@ export default function HomePage() {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
-            transition: { duration: 1, staggerChildren: 0.3 }
+            transition: { duration: 2, staggerChildren: 0.2 }
         }
     };
 
@@ -239,8 +239,8 @@ export default function HomePage() {
             opacity: 1,
             transition: {
                 type: "spring",
-                stiffness: 150,
-                duration: 0.6,
+                stiffness: 100,
+                duration: 1,
             }
         }
     };
@@ -276,7 +276,7 @@ export default function HomePage() {
                 </div>
             </section>
             <HomeCarousel carouselData={carouselData} />
-            <section className="min-h-[80vh] relative overflow-hidden w-5/6 mx-auto">
+            <section className="min-h-[80vh] relative w-5/6 mx-auto">
                 <h3 className='text-center font-semibold text-3xl'>Latest Issues</h3>
                 <p className='text-center my-2 text-sm'>Stay informed about current problems being addressed in your city. These are the latest issues reported by citizens like you.</p>
                 <article className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full my-10'>
@@ -289,8 +289,11 @@ export default function HomePage() {
                             latestIssue?.map(e => <Card key={e._id} e={e} />)
                     }
                 </article>
+                <div className='w-fit mx-auto'>
+                <Link to='/all-issues' className='btn btn-primary rounded-md trns'>Show All</Link>
+                </div>
             </section>
-            <section className="min-h-[80vh] relative overflow-hidden w-5/6 mx-auto my-12">
+            <section className="min-h-[80vh] relative w-5/6 mx-auto my-12">
                 <h3 className='font-bold text-2xl text-center'>How Does It Work</h3>
                 <p className='text-center my-2 text-sm'>From reporting to resolution, our transparent 8-step process ensures every public issue gets timely attention. Citizens report, admins verify, staff resolve, and everyone tracks progress in real-time.</p>
                 <dl className='space-y-6 my-6 w-full'>
@@ -322,7 +325,7 @@ export default function HomePage() {
                         >
                             <button
                                 onClick={() => setActiveId(activeId === i ? null : i)}
-                                className="w-full flex justify-between items-center px-5 py-4 text-left font-medium bg-white hover:bg-gray-100 trns"
+                                className="w-full flex justify-between items-center px-5 py-4 text-left font-medium bg-(--bg-secondary) hover:bg-(--bg) trns"
                             >
                                 <span>{faq.question}</span>
                                 <span className="text-xl font-bold">
@@ -331,7 +334,7 @@ export default function HomePage() {
                             </button>
 
                             {activeId === i && (
-                                <div className="px-5 py-4 text-gray-600 bg-white">
+                                <div className="px-5 py-4 bg-(--bg-secondary)">
                                     {faq.answer}
                                 </div>
                             )}
@@ -358,7 +361,7 @@ export default function HomePage() {
                         >
                             <button
                                 onClick={() => setActiveId(activeId === i ? null : i)}
-                                className="w-full flex justify-between items-center px-5 py-4 text-left font-medium bg-white hover:bg-gray-100 trns"
+                                className="w-full flex justify-between items-center px-5 py-4 text-left font-medium bg-(--bg-secondary) hover:bg-(--bg) trns"
                             >
                                 <span>{faq.q}</span>
                                 <span className="text-xl font-bold">
@@ -367,7 +370,7 @@ export default function HomePage() {
                             </button>
 
                             {activeId === i && (
-                                <div className="px-5 py-4 text-gray-600 bg-white">
+                                <div className="px-5 py-4 bg-(--bg-secondary)">
                                     {faq.a}
                                 </div>
                             )}
@@ -385,7 +388,7 @@ export default function HomePage() {
                     className="grid grid-cols-1 md:grid-cols-3 place-content-center-safe gap-6 text-center">
                     {
                         goalsData.map((e, i) => (
-                            <motion.span variants={itemVariants} key={i} className="bg-white rounded-xl shadow-md/20 p-10 flex flex-col items-center justify-center gap-2">
+                            <motion.span variants={itemVariants} key={i} className="bg-(--bg-secondary) rounded-xl shadow-md/20 p-10 flex flex-col items-center justify-center gap-2">
                                 <h3 className="text-lg font-semibold">{e.title}</h3>
                                 <p>{e.description}</p>
                             </motion.span>

@@ -42,7 +42,7 @@ export default function AssignedRow({ e, i }) {
         });
     }
     return (
-        <tr className="border border-gray-300 bg-white">
+        <tr className="border border-gray-300 bg-(--bg-secondary)">
             <td className="hidden sm:table-cell">{i + 1}</td>
             <td>
                 <div className="flex items-center text-start gap-2">

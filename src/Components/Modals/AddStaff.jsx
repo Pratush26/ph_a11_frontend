@@ -1,13 +1,12 @@
 import { useForm } from "react-hook-form"
-import '../Utils/form.css'
+import '../../Utils/form.css'
 import axios from "axios"
-import { showToast } from "../Utils/ShowToast"
 import { useState } from "react"
-import { AuthContext } from "../Context/AuthContext"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 import { RxCross2 } from "react-icons/rx"
-import { useAxios } from "../Hooks/UseAxios"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useAxios } from "../../Hooks/UseAxios"
+import { showToast } from "../../Utils/ShowToast"
 
 export default function AddStaffForm({ setIsModalOpened }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
@@ -47,7 +46,7 @@ export default function AddStaffForm({ setIsModalOpened }) {
     });
     const formSubmit = (data) => createIssueMutation.mutate(data)
     return (
-        <form onSubmit={handleSubmit(formSubmit)} className="absolute bg-white z-90 right-1/2 top-0 translate-x-1/2 flex flex-col items-center gap-3 p-10 shadow-md/40 rounded-2xl w-11/12 sm:w-2/3">
+        <form onSubmit={handleSubmit(formSubmit)} className="absolute bg-(--bg) z-90 right-1/2 top-0 translate-x-1/2 flex flex-col items-center gap-3 p-10 shadow-md/40 rounded-2xl w-11/12 sm:w-2/3">
             <div className="w-full flex items-center justify-between gap-2">
                 <h4 className="text-xl font-bold">Add Staff</h4>
                 <button onClick={() => setIsModalOpened(false)} type="button" className="cursor-pointer">

@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query"
 import Loader from "../../../Shared/Loader"
 import Error from "../../../Shared/Error"
 import '../../../Utils/table.css'
-import StaffListModal from "../../../Components/StaffListModal"
 import axios from "axios"
+import StaffListModal from "../../../Components/Modals/StaffListModal"
 
 export default function AssignIssues() {
     const [isModalOpened, setIsModalOpened] = useState(false)
@@ -88,10 +88,10 @@ export default function AssignIssues() {
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody className="text-gray-800">
+                        <tbody>
                             {
                                 issueData?.map((e, i) => (
-                                    <tr key={i} className="border border-gray-300 bg-white w-full">
+                                    <tr key={i} className="border border-gray-300 bg-(--bg-secondary) w-full">
                                         <td className="hidden sm:table-cell">{i + 1}</td>
                                         <td>
                                             <div className="flex justify-center items-center text-start gap-2">

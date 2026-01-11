@@ -1,7 +1,7 @@
 input,
 textarea,
 select {
-    background-color: white;
+    background-color: var(--bg-secondary);
     padding: 10px 20px;
     font-size: .9rem;
     width: 100%;
@@ -24,7 +24,7 @@ label{
 
 input:-webkit-autofill {
     -webkit-box-shadow: 2px 2px 4px rgba(0, 2, 21, 0.425);
-    -webkit-text-fill-color: var(--color-base-content);
+    -webkit-text-fill-color: var(--text-primary);
     transition: background-color 5000s ease-in-out 0s;
 }
 

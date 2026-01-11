@@ -27,10 +27,10 @@ export default function Card({ e }) {
         } else upvoteMutation.mutate()
     }
     return (
-        <div className='shadow-md/30 rounded-xl p-4 flex flex-col justify-between gap-2 text-sm'>
+        <div className='shadow-md/30 rounded-xl p-4 flex flex-col justify-between gap-2 text-sm bg-(--bg-secondary)'>
             <h6 className='text-lg font-bold'>{e.title}</h6>
             <div className='flex items-center justify-between w-full gap-2 font-medium text-xs'>
-                <span className="px-4 py-1 rounded-full bg-gray-300 font-medium">{e?.category}</span>
+                <span className="px-4 py-1 rounded-full bg-gray-300 text-black font-medium">{e?.category}</span>
                 <span
                     className={`px-3 py-1 rounded-full text-white
                             ${e.status === "pending" ? "bg-amber-500" : e.status === "working" ? "bg-violet-500" : e.status === "in-progress" ? "bg-blue-500" : e.status === "resolved" ? "bg-emerald-500" : e.status === "closed" ? "bg-gray-500" : "bg-rose-500"}

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 import Loader from "../../../Shared/Loader"
 import Error from "../../../Shared/Error"
 import '../../../Utils/table.css'
-import BlockButton from "../../../Components/BlockButton"
+import BlockButton from "../../../Components/Button/BlockButton"
 
 export default function ManageUsersPage() {
     const axis = useAxios()
@@ -38,10 +38,10 @@ export default function ManageUsersPage() {
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody className="text-gray-800">
+                <tbody>
                     {
                         staffsData?.map((e, i) => (
-                            <tr key={i} className="border border-gray-300 bg-white">
+                            <tr key={i} className="border border-gray-300 bg-(--bg-secondary)">
                                 <td className="hidden sm:table-cell">{i + 1}</td>
                                 <td>
                                     <div className="flex items-center text-start gap-2">

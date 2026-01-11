@@ -19,7 +19,7 @@ export default function DashboardLayout() {
     }, [pathname]);
     return (
         <div className="flex flex-col items-center justify-between min-h-screen">
-            <header className="w-full bg-white shadow-md py-4 sticky z-100 top-0">
+            <header className="w-full bg-(--bg-secondary) shadow-md py-4 sticky z-100 top-0">
                 <div className="w-11/12 mx-auto flex items-center justify-between gap-4">
                     <button className="text-xl" onClick={() => setMenuOpened(!menuOpened)}>{menuOpened ? <RxCross2 /> : <HiOutlineMenu />}</button>
                     <Link to='/' className="flex items-end">

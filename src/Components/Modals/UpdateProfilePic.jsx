@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../Context/AuthContext";
-import { useAxios } from "../Hooks/UseAxios";
 import { useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
-import { showToast } from "../Utils/ShowToast";
 import axios from "axios";
 import { MdEdit } from "react-icons/md";
+import { AuthContext } from "../../Context/AuthContext";
+import { useAxios } from "../../Hooks/UseAxios";
+import { showToast } from "../../Utils/ShowToast";
 
 export default function UpdateProfilePic() {
     const { userInfo, updateUser } = useContext(AuthContext)

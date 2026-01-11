@@ -113,7 +113,7 @@ export default function AboutUsPage() {
             <article className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 place-content-center-safe gap-6 text-sm text-center">
                 {
                     team.map((e, i) => (
-                        <span key={i} className="rounded-xl shadow-md/30 p-6 flex flex-col items-center justify-center gap-1">
+                        <span key={i} className="rounded-xl bg-(--bg-secondary) shadow-md/30 p-6 flex flex-col items-center justify-center gap-1">
                             <h3 className="text-lg font-semibold">{e.name}</h3>
                             <p className="text-blue-700 font-semibold">{e.role}</p>
                             <p className="text-xs">{e.bio}</p>
@@ -126,7 +126,7 @@ export default function AboutUsPage() {
             <article className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-content-center-safe gap-6 text-sm my-14 text-center">
                 {
                     achievements.map((e, i) => (
-                        <span key={i} className="rounded-xl shadow-md/30 p-6 flex flex-col items-center justify-center gap-1">
+                        <span key={i} className="rounded-xl bg-(--bg-secondary) shadow-md/30 p-6 flex flex-col items-center justify-center gap-1">
                             <h3 className="text-lg font-semibold">{e.value}</h3>
                             <p className="text-blue-700 font-semibold">{e.label}</p>
                             <p>{e.description}</p>

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAxios } from "../Hooks/UseAxios";
-import { showToast } from "../Utils/ShowToast";
+import { useAxios } from "../../Hooks/UseAxios";
+import { showToast } from "../../Utils/ShowToast";
 
 export default function BlockButton({email, current}) {
     const axis = useAxios()

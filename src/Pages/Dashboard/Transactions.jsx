@@ -48,10 +48,10 @@ export default function TransactionsPage() {
                                 </th>
                             </tr>
                         </thead>
-                        <tbody className="text-gray-800">
+                        <tbody>
                             {
                                 transactionsData?.map((e, i) => (
-                                    <tr key={i} className="border border-gray-300 bg-white">
+                                    <tr key={i} className="border border-gray-300 bg-(--bg-secondary)">
                                         <td className="hidden sm:table-cell">{i + 1}</td>
                                         <td className="text-xs">
                                             <div>

@@ -1,12 +1,12 @@
 import { useState } from "react"
-import AddStaffForm from "../../../Components/AddStaff"
 import { useAxios } from "../../../Hooks/UseAxios"
 import { useQuery } from "@tanstack/react-query"
 import Loader from "../../../Shared/Loader"
 import Error from "../../../Shared/Error"
 import '../../../Utils/table.css'
-import BlockButton from "../../../Components/BlockButton"
-import UpdateUserInfo from "../../../Components/AdminUpdate"
+import AddStaffForm from "../../../Components/Modals/AddStaff"
+import BlockButton from "../../../Components/Button/BlockButton"
+import UpdateUserInfo from "../../../Components/Modals/AdminUpdate"
 
 export default function ManageStaffsPage() {
     const [isModalOpened, setIsModalOpened] = useState(false)
@@ -47,10 +47,10 @@ export default function ManageStaffsPage() {
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody className="text-gray-800">
+                <tbody>
                     {
                         staffsData?.map((e, i) => (
-                            <tr key={i} className="border border-gray-300 bg-white">
+                            <tr key={i} className="border border-gray-300 bg-(--bg-secondary)">
                                 <td className="hidden sm:table-cell">{i + 1}</td>
                                 <td>
                                     <div className="flex items-center text-start gap-2">

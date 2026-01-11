@@ -4,11 +4,11 @@ import Loader from "../../../Shared/Loader"
 import Error from "../../../Shared/Error"
 import '../../../Utils/table.css'
 import { Link } from "react-router"
-import BoostPriorityButton from "../../../Components/BoostPriorityButton"
-import UpdateIssueModal from "../../../Components/UpdateIssueModal"
 import { useState } from "react"
-import DeleteIssueButton from "../../../Components/DeleteIssue"
 import axios from "axios"
+import UpdateIssueModal from "../../../Components/Modals/UpdateIssueModal"
+import BoostPriorityButton from "../../../Components/Button/BoostPriorityButton"
+import DeleteIssueButton from "../../../Components/Button/DeleteIssue"
 
 export default function MyIssuePage() {
     const axis = useAxios()
@@ -83,7 +83,7 @@ export default function MyIssuePage() {
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody className="text-gray-800">
+                <tbody>
                     {
                         (isLoading || isFetching) ?
                             <div className="flex w-full min-h-[90vh] items-center justify-center">
@@ -91,7 +91,7 @@ export default function MyIssuePage() {
                             </div>
                             :
                             myIssue?.map((e, i) => (
-                                <tr key={i} className="border border-gray-300 bg-white">
+                                <tr key={i} className="border border-gray-300 bg-(--bg-secondary)">
                                     <td className="hidden sm:table-cell">{i + 1}</td>
                                     <td>
                                         <div className="flex flex-col md:flex-row items-center text-start gap-2">

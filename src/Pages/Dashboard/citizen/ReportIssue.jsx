@@ -61,7 +61,7 @@ export default function ReportIssue() {
     const formSubmit = (data) => createIssueMutation.mutate(data)
 
     return (
-        <form onSubmit={handleSubmit(formSubmit)} className="bg-white flex flex-col items-center gap-3 p-10 shadow-md/40 rounded-2xl w-11/12 md:w-3/4 mx-auto my-8">
+        <form onSubmit={handleSubmit(formSubmit)} className="bg-(bg-secondary) flex flex-col items-center gap-3 p-10 shadow-md/40 rounded-2xl w-11/12 md:w-3/4 mx-auto my-8">
             <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <legend className="text-center font-bold text-3xl my-4">Add Report</legend>
                 <div className="w-full">

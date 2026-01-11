@@ -3,7 +3,7 @@ import Autoplay from 'embla-carousel-autoplay'
 import Fade from 'embla-carousel-fade'
 
 export default function TestimonialCarousel({ testimonials }) {
-    const [emblaRef] = useEmblaCarousel({ loop: true }, [Fade(), Autoplay()])
+    const [emblaRef] = useEmblaCarousel({ loop: true }, [ Autoplay()])
     return (
         <div className='embla w-5/6 my-12 mx-auto'>
             <h4 className='text-3xl font-bold text-center'>Testimonials</h4>
@@ -11,7 +11,7 @@ export default function TestimonialCarousel({ testimonials }) {
                 <div className="embla__container">
                     {
                         testimonials?.map((testimonial, i) => (
-                            <div key={i} className='flex flex-col items-center justify-center gap-2 w-full p-8 rounded-xl bg-white'>
+                            <div key={i} className='embla__slide bg-(--bg-secondary) flex flex-col items-center justify-center gap-2 p-8 rounded-xl'>
                                 <div>
                                     {"⭐".repeat(testimonial.rating)}
                                 </div>

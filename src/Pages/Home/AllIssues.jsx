@@ -49,7 +49,7 @@ export default function AllIssuesPage() {
     })
     if (dataErr) return <Error msg={dataErr.message} />;
     return (
-        <main className="min-h-[80vh] w-11/12 mx-auto my-10">
+        <main className="min-h-[80vh] w-5/6 mx-auto my-10">
             <h3 className='text-center font-semibold text-3xl'>All Issues</h3>
             <p className='text-center my-2 text-sm'>Stay informed about current problems being addressed in your city. These are the latest issues reported by citizens like you.</p>
             <form className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full my-8">
@@ -74,7 +74,7 @@ export default function AllIssuesPage() {
                 </select>
                 <input type="text" placeholder="Search issue" onChange={(e) => setSearchInput(e.target.value)} />
             </form>
-            <article className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-11/12 mx-auto my-10'>
+            <article className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full my-10'>
                 {
                     (isFetching || issueLoading) ?
                         <div className='min-h-[90vh] w-fit mx-auto flex items-center justify-center col-span-4'>

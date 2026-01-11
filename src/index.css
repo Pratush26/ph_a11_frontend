@@ -2,30 +2,64 @@
 
 @import "tailwindcss";
 
+/* ========== LIGHT MODE (default) ========== */
 :root {
-  /* Primary Colors */
-  --primary-500: #3B82F6;
-  --primary-600: #2563EB;
-  --primary-700: #1E40AF;
+  /* Background & Text */
+  --bg: #f5f5f5;
+  --bg-secondary: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
 
-  /* Status Colors */
-  --status-pending: #F59E0B;
-  --status-inprogress: #F97316;
-  --status-resolved: #10B981;
-  --status-closed: #6B7280;
-  --status-urgent: #EF4444;
-  
-  /* Functional Colors */
-  --success: #10B981;
-  --warning: #F59E0B;
-  --error: #EF4444;
-  --info: #3B82F6;
+  /* Primary */
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1e40af;
+
+  /* Status */
+  --status-pending: #f59e0b;
+  --status-inprogress: #f97316;
+  --status-resolved: #10b981;
+  --status-closed: #6b7280;
+  --status-urgent: #ef4444;
+
+  /* Functional */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #3b82f6;
 }
 
-body{
+/* ========== DARK MODE ========== */
+.dark {
+  --bg: #0f172a;
+  --bg-secondary: #020617;
+  --text-primary: #e5e7eb;
+  --text-secondary: #9ca3af;
+
+  --primary-500: #60a5fa;
+  --primary-600: #3b82f6;
+  --primary-700: #2563eb;
+
+  --status-pending: #fbbf24;
+  --status-inprogress: #fb923c;
+  --status-resolved: #34d399;
+  --status-closed: #9ca3af;
+  --status-urgent: #f87171;
+
+  --success: #34d399;
+  --warning: #fbbf24;
+  --error: #f87171;
+  --info: #60a5fa;
+}
+
+/* Base styles */
+body {
   font-family: "Inter", sans-serif;
-  background-color: whitesmoke;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
 .embla {
   overflow: hidden;
 }

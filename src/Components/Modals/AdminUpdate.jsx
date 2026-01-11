@@ -1,13 +1,13 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { FiEdit3 } from "react-icons/fi";
-import { AuthContext } from "../Context/AuthContext";
-import { useAxios } from "../Hooks/UseAxios";
 import { useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
-import { showToast } from "../Utils/ShowToast";
+import { useQueryClient } from "@tanstack/react-query";
+import { useAxios } from "../../Hooks/UseAxios";
+import { showToast } from "../../Utils/ShowToast";
 
-export default function UpdateUserName() {
-    const { userInfo, updateUser } = useContext(AuthContext)
+export default function UpdateUserInfo({ userInfo }) {
+    const queryClient = useQueryClient()
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         defaultValues: {
             name: userInfo?.name,
@@ -19,36 +19,32 @@ export default function UpdateUserName() {
     const [isModalOpened, setIsModalOpened] = useState(false)
     const handleUpdate = async (data) => {
         try {
-            await updateUser(data.name, userInfo?.photoURL);
             const res = await axis.patch("/userInfo", {
                 email: userInfo?.email,
-                name: data.name,
                 phone: data.phone,
                 address: data.address
             })
-            if (res.data.success) showToast({ type: "success", msg: "Successfully Updated your profile details!" });
-            else showToast({ type: "error", msg: res.data.response.data.message || "Something went wrong!" });
+            if (res.data.success) {
+                showToast({ type: "success", msg: "Successfully Updated your profile details!" });
+                queryClient.invalidateQueries({ queryKey: ["staffs"] })
+            } else showToast({ type: "error", msg: res.data.response.data?.message || "Something went wrong!" });
         } catch (error) {
-            showToast({ type: "error", msg: error.data.response.data.message || "Something went wrong!" });
+            showToast({ type: "error", msg: error?.data.response.data?.message || "Something went wrong!" });
             console.error(error)
         }
     }
     return (
         <div className="relative">
-            <button onClick={() => setIsModalOpened(!isModalOpened)} className="btn btn-primary trns flex items-center gap-2 rounded-md"><FiEdit3 /> Edit Profile Info</button>
+            <button onClick={() => setIsModalOpened(!isModalOpened)} className="btn btn-primary trns flex items-center gap-2 rounded-md"><FiEdit3 /> Edit</button>
             {
                 isModalOpened
                 &&
-                <form onSubmit={handleSubmit(handleUpdate)} className="absolute bg-white z-90 right-1/2 top-0 translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-3 p-10 shadow-md/40 rounded-2xl min-w-xs">
+                <form onSubmit={handleSubmit(handleUpdate)} className="fixed bg-white z-90 right-1/2 top-0 translate-x-1/2 translate-y-1/2 flex flex-col items-center gap-3 p-10 shadow-md/40 rounded-2xl min-w-xs">
                     <div className="w-full flex items-center justify-between gap-2">
-                        <h4 className="text-xl font-bold">Update Profile Info</h4>
+                        <h4 className="text-xl font-bold">Update Staff Info</h4>
                         <button onClick={() => setIsModalOpened(false)} type="button" className="cursor-pointer">
                             <RxCross2 />
                         </button>
-                    </div>
-                    <div className="w-full">
-                        {errors.name ? <p className="text-sm text-rose-600">{errors.name.message}</p> : <label htmlFor="name">Name :</label>}
-                        <input type="text" {...register("name", { required: "name is required" })} placeholder="Enter name" id="name" />
                     </div>
                     <div className="w-full">
                         {errors.phone ? <p className="text-sm text-rose-600">{errors.phone.message}</p> : <label htmlFor="phone">Phone Number :</label>}

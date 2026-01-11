@@ -1,9 +1,9 @@
 import { useContext } from "react"
 import { AuthContext } from "../../Context/AuthContext"
 import { RiPoliceBadgeLine } from "react-icons/ri"
-import UpdateUserName from "../../Components/UpdateUserName"
-import UpdateProfilePic from "../../Components/UpdateProfilePic"
-import SubscribeButton from "../../Components/SubscribeButton"
+import UpdateProfilePic from "../../Components/Modals/UpdateProfilePic"
+import UpdateUserName from "../../Components/Modals/UpdateUserName"
+import SubscribeButton from "../../Components/Button/SubscribeButton"
 
 export default function Profile() {
     const { userInfo, signOutUser, resetPassword } = useContext(AuthContext)

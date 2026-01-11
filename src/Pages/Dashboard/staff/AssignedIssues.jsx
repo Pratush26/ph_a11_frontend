@@ -36,7 +36,7 @@ export default function AssignedIssues() {
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody className="text-gray-800">
+                <tbody>
                     {
                         myIssue?.map((e, i) => <AssignedRow key={i} i={i} e={e} />)
                     }

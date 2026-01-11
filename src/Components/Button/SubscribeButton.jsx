@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
-import { useAxios } from "../Hooks/UseAxios"
-import { showToast } from "../Utils/ShowToast";
+import { useAxios } from "../../Hooks/UseAxios";
+import { showToast } from "../../Utils/ShowToast";
 
 export default function SubscribeButton({premium}) {
     const axis = useAxios()
