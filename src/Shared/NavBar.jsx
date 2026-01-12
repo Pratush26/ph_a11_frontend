@@ -40,12 +40,12 @@ export default function NavBar() {
                                     isHover
                                     &&
                                     <div className="space-x-2 absolute bottom-0 translate-y-full -translate-x-1/2 p-2 flex flex-col gap-1 bg-(--bg-secondary)">
-                                        <NavLink className="trns hover:bg-gray-200 px-4 py-2 trns rounded-sm" to='/dashboard'>Dashboard</NavLink>
+                                        <NavLink className="trns hover:bg-(--bg) px-4 py-2 trns rounded-sm" to='/dashboard'>Dashboard</NavLink>
                                         <div className="flex flex-col md:hidden gap-2">
-                                            <NavLink className="trns hover:bg-gray-200 px-4 py-2 rounded-sm" to='/'>Home</NavLink>
-                                            <NavLink className="trns hover:bg-gray-200 px-4 py-2 rounded-sm" to='/all-issues'>All Issues</NavLink>
-                                            <NavLink className="trns hover:bg-gray-200 px-4 py-2 rounded-sm" to='/about'>About</NavLink>
-                                            <NavLink className="trns hover:bg-gray-200 px-4 py-2 rounded-sm" to='/contact'>Contact Us</NavLink>
+                                            <NavLink className="trns hover:bg-(--bg) px-4 py-2 rounded-sm" to='/'>Home</NavLink>
+                                            <NavLink className="trns hover:bg-(--bg) px-4 py-2 rounded-sm" to='/all-issues'>All Issues</NavLink>
+                                            <NavLink className="trns hover:bg-(--bg) px-4 py-2 rounded-sm" to='/about'>About</NavLink>
+                                            <NavLink className="trns hover:bg-(--bg) px-4 py-2 rounded-sm" to='/contact'>Contact Us</NavLink>
                                         </div>
                                         <ThemeBtn size={"full"} />
                                         <button

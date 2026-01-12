@@ -78,14 +78,14 @@ nav a.active{
   text-underline-offset: 4px;
 }
 aside a.active{
-  background-color: #dfdfdf;
+  background-color: var(--bg);
 }
 .sideLink{
   padding: 6px 12px;
   border-radius: 6px;
 }
 .sideLink:hover{
-  background-color: whitesmoke;
+  background-color: var(--bg);
 }
 .btn{
   padding: 8px 18px;
